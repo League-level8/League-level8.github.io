@@ -1,0 +1,404 @@
+<html>
+<head>
+  <h1 align="center">QUIZ</h1>
+</head>
+
+<body onload="startup()" style="background-color:#bbccdd;font-weight:bold;font-size:22px;">
+  <pre style="white-space:pre-wrap;"><code>
+  <div id="docBody"style="overflow:visible;"></div>
+</code></pre>
+</body>
+
+<script>
+  function Question() {
+    this.question = "";
+    this.choices = [];
+    this.correctAnswers = [];
+    this.userAnswers = [];
+    this.visited = false;
+  }
+  
+  var body;
+  
+  var questions = [];
+  
+  var currentQuestion;
+  
+  function startup() {
+    currentQuestion = 0;
+  
+    body = document.getElementById("docBody");
+
+questions[0] = new Question();
+questions[0].question = "What is the result of the following class? (Choose all that apply)<br>1: public class _C{<br>2: &nbsp&nbspprivate static int $;<br>3: &nbsp&nbsppublic static void main(String[] main){<br>4: &nbsp&nbsp&nbsp&nbspString a_b;<br>5: &nbsp&nbsp&nbsp&nbspSystem.out.print($);<br>6: &nbsp&nbsp&nbsp&nbspSystem.out.println(a_b);<br>7: } }";
+questions[0].choices[0] = "Compiler error on line 1.";
+questions[0].choices[1] = "Compiler error on line 2.";
+questions[0].choices[2] = "Compiler error on line 4.";
+questions[0].choices[3] = "Compiler error on line 5.";
+questions[0].choices[4] = "Compiler error on line 6.";
+questions[0].choices[5] = "0null";
+questions[0].choices[6] = "nullnull";
+questions[0].correctAnswers = [4];
+questions[1] = new Question();
+questions[1].question = "What is the result of the following code?<br>String s1 = \"Java\";<br>String s2 = \"Java\";<br>StringBuilder sb1 = new StringBuilder();<br>sb1.append(\"Ja\").append(\"va\");<br>System.out.println(s1 == s2);<br>System.out.println(s1.equals(s2));<br>System.out.println(sb1.toString() == s1);<br>System.out.println(sb1.toString().equals(s1));";
+questions[1].choices[0] = "true is printed out exactly once.";
+questions[1].choices[1] = "true is printed out exactly twice.";
+questions[1].choices[2] = "true is printed out exactly three times.";
+questions[1].choices[3] = "true is printed out exactly four times.";
+questions[1].choices[4] = "The code does not compile.";
+questions[1].correctAnswers = [2];
+questions[2] = new Question();
+questions[2].question = "What is the output of the following code? (Choose all that apply)<br>1: interface HasTail { int getTailLength(); }<br>2: abstract class Puma implements HasTail {<br>3: &nbsp&nbspprotected int getTailLength() {return 4;}<br>4: }<br>5: public class Cougar extends Puma {<br>6: &nbsp&nbsppublic static void main(String[] args) {<br>7: &nbsp&nbsp&nbsp&nbspPuma puma = new Puma();<br>8: &nbsp&nbsp&nbsp&nbspSystem.out.println(getTailLength());<br>9: &nbsp&nbsp}<br>10:<br>11: &nbsp&nbsppublic int getTailLength(int length) {return 2;}<br>12: }";
+questions[2].choices[0] = "2";
+questions[2].choices[1] = "4";
+questions[2].choices[2] = "The code will not compile because of line 3.";
+questions[2].choices[3] = "The code will not compile because of line 5.";
+questions[2].choices[4] = "The code will not compile because of line 7.";
+questions[2].choices[5] = "The code will not compile because of line 11.";
+questions[2].choices[6] = "The output cannot be determined by the code provided.";
+questions[2].correctAnswers = [2, 3, 4];
+questions[3] = new Question();
+questions[3].question = "What is the output of the following program?<br>1: public class FeedingSchedule {<br>2: &nbsp&nbsppublic static void main(String[] args) {<br>3: &nbsp&nbsp&nbsp&nbspboolean keepGoing = true;<br>4: &nbsp&nbsp&nbsp&nbspint count = 0;<br>5: &nbsp&nbsp&nbsp&nbspint x = 3;<br>6: &nbsp&nbsp&nbsp&nbspwhile(count++ &lt 3) {<br>7: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspint y = (1 + 2 * count) % 3;<br>8: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspswitch(y) {<br>9: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspdefault:<br>10: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspcase 0: x -= 1; break;<br>11:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp case 1: x += 5;<br>12: &nbsp&nbsp&nbsp&nbsp}<br>13: &nbsp&nbsp}<br>14: &nbsp&nbspSystem.out.println(x);<br>15: } }";
+questions[3].choices[0] = "4";
+questions[3].choices[1] = "5";
+questions[3].choices[2] = "6";
+questions[3].choices[3] = "7";
+questions[3].choices[4] = "13";
+questions[3].choices[5] = "The code will not compile because of line 7.";
+questions[3].correctAnswers = [2];
+questions[4] = new Question();
+questions[4].question = "What is the output of the following code snippet?<br>13: System.out.println(\"a\");<br>14: try {<br>15: &nbsp&nbspSystem.out.println(\"b\");<br>16: &nbsp&nbspthrow new IllegalArgumentException();<br>17: } catch(RuntimeException e) {<br>18: &nbsp&nbspSystem.out.println(\"c\");<br>19: } finally {<br>20: &nbsp&nbspSystem.out.println(\"d\");<br>21: }<br>22: System.out.println(\"e\");";
+questions[4].choices[0] = "abe";
+questions[4].choices[1] = "abce";
+questions[4].choices[2] = "abde";
+questions[4].choices[3] = "abcde";
+questions[4].choices[4] = "The code does not compile.";
+questions[4].choices[5] = "An uncaught exception is thrown.";
+questions[4].correctAnswers = [3];
+questions[5] = new Question();
+questions[5].question = "What is the result of the following program?<br>1: public class MathFunctions {<br>2: &nbsp&nbsppublic static void addToInt(int x, int amountToAdd) {<br>3: &nbsp&nbsp&nbsp&nbspx = x + amountToAdd;<br>4: &nbsp&nbsp}<br>5: &nbsp&nbsppublic static void main(String[] args) {<br>6:&nbsp&nbsp&nbsp&nbsp int a = 15;<br>7: &nbsp&nbsp&nbsp&nbspint b = 10;<br>8: &nbsp&nbsp&nbsp&nbspMathFunctions.addToInt(a, b); <br>9: &nbsp&nbsp&nbsp&nbspSystem.out.println(a); } }";
+questions[5].choices[0] = "10";
+questions[5].choices[1] = "15";
+questions[5].choices[2] = "25";
+questions[5].choices[3] = "Compiler error on line 3.";
+questions[5].choices[4] = "Compiler error on line 8.";
+questions[5].choices[5] = "None of the above.";
+questions[5].correctAnswers = [1];
+questions[6] = new Question();
+questions[6].question = "What is the result of the following code?<br>int[] array = {6,9,8};<br>List&ltInteger> list = new ArrayList&lt>();<br>list.add(array[0]);<br>list.add(array[2]);<br>list.set(1, array[1]);<br>list.remove(0);<br>System.out.println(list);";
+questions[6].choices[0] = "[8]";
+questions[6].choices[1] = "[9]";
+questions[6].choices[2] = "Something like [Ljava.lang.String;@160bc7c0";
+questions[6].choices[3] = "An exception is thrown";
+questions[6].choices[4] = "The code does not compile";
+questions[6].correctAnswers = [1];
+questions[7] = new Question();
+questions[7].question = "What is the output of the following code?<br>1: public class Deer {<br>2: &nbsp&nbsppublic Deer() { System.out.printlnt(\"Deer\"); }<br>3: &nbsp&nbsppublic Deer(int age) { System.out.print(\"DeerAge\"); }<br>4: &nbsp&nbspprivate boolean hasHorns() { return false; }<br>5: &nbsp&nbsppublic static void main(String[] args) {<br>6: &nbsp&nbsp&nbsp&nbspDeer deer = new Reindeer(5);<br>7: &nbsp&nbsp&nbsp&nbspSystem.out.println(\",\"+deer.hasHorns());<br>8:&nbsp&nbsp } <br>9: }<br>10: class Reindeer extends Deer {<br>11:&nbsp&nbsp public Reindeer(int age) { System.out.println(\"Reindeer\"); }<br>12:&nbsp&nbsp public boolean hasHorns() { return true; }<br>13: }<br>";
+questions[7].choices[0] = "DeerReindeer,false";
+questions[7].choices[1] = "DeerReindeer,true";
+questions[7].choices[2] = "ReindeerDeer,false";
+questions[7].choices[3] = "ReindeerDeer,true";
+questions[7].choices[4] = "DeerAgeReindeer,false";
+questions[7].choices[5] = "DeerAgeReindeer,true";
+questions[7].choices[6] = "The code will not compile because of line 7.";
+questions[7].choices[7] = "The code will not compile because of line 12."
+questions[7].correctAnswers = [0];
+questions[8] = new Question();
+questions[8].question = "Which of the following statements are true? (Choose all that apply)<br>";
+questions[8].choices[0] = "Checked exceptions are intended to be thrown by the JVM (and not the programmer).";
+questions[8].choices[1] = "Checked exceptions are required to be caught or declared.<br>";
+questions[8].choices[2] = "Errors are intended to be thrown by the JVM (and not the programmer).<br>";
+questions[8].choices[3] = "Errors are required to be caught or declared.<br>";
+questions[8].choices[4] = "Runtime exceptions are intended to be thrown by the JVM (and not the programmer).<br>";
+questions[8].choices[5] = "Runtime exceptions are required to be caught or declared.<br>";
+questions[8].correctAnswers = [1, 2];
+questions[9] = new Question();
+questions[9].question = "Which are true of the following code? (Check all that apply)<br>1: import java.util.*;<br>2: public class Grasshopper {<br>3: &nbsp&nbsppublic Grasshopper(String n) {<br>4: &nbsp&nbsp&nbsp&nbspname = n; <br>5:&nbsp&nbsp }<br>6: &nbsp&nbsppublic static void main(String[] args) {<br>7: &nbsp&nbsp&nbsp&nbspGrasshopper one = new Grasshopper(\"g1\");<br>8:&nbsp&nbsp&nbsp&nbsp Grasshopper one = new Grasshopper(\"g2\"); <br>9:&nbsp&nbsp&nbsp&nbsp one = two;<br>10: &nbsp&nbsp&nbsp&nbsptwo = null;<br>11:&nbsp&nbsp&nbsp&nbsp one = null;<br>12: &nbsp&nbsp}<br>13: &nbsp&nbspprivate String name; }";
+questions[9].choices[0] = "Immediately after line 9, no grasshopper objects are eligible for garbage collection.";
+questions[9].choices[1] = "Immediately after line 10, no grasshopper objects are eligible for garbage collection.";
+questions[9].choices[2] = "Immediately after line 9, only one grasshopper object is eligible for garbage collection.<br>";
+questions[9].choices[3] = "Immediately after line 10, only one grasshopper object is eligible for garbage collection.";
+questions[9].choices[4] = "Immediately after line 11, only one grasshopper object is eligible for garbage collection.<br>";
+questions[9].choices[5] = "The code compiles.";
+questions[9].choices[6] = "The code does not compile.";
+questions[9].correctAnswers = [2, 3, 5];
+questions[10] = new Question();
+questions[10].question = "What is the output of the following program?<br>1: public class FeedingSchedule {<br>2: &nbsp&nbsppublic static void main(String[] args) {<br>3:&nbsp&nbsp&nbsp&nbsp int x = 5, j = 0;<br>4: &nbsp&nbsp&nbsp&nbspOUTER: for(int i = 0; i &lt 3; )<br>5: &nbsp&nbsp&nbsp&nbspINNER: do {<br>6: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspi++; x++;<br>7:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp if(x > 10) break INNER;<br>8:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp x += 4;<br>9:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp j++;<br>10: &nbsp&nbsp&nbsp&nbsp} while(j &lt= 2);<br>11:&nbsp&nbsp System.out.println(x);<br>12: } }<br>";
+questions[10].choices[0] = "10";
+questions[10].choices[1] = "12";
+questions[10].choices[2] = "13";
+questions[10].choices[3] = "17";
+questions[10].choices[4] = "The code will not compile because of line 4.";
+questions[10].choices[5] = "The code will not compile because of line 6.";
+questions[10].correctAnswers = [1];
+questions[11] = new Question();
+questions[11].question = "What is the output of the following program?<br>1: public class Egrat {<br>2:&nbsp&nbsp private String color;<br>3: &nbsp&nbsppublic Egret() {<br>4: &nbsp&nbsp&nbsp&nbspthis(\"white\");<br>5: &nbsp&nbsp}<br>6: &nbsp&nbsppublic Egret(String color) {<br>7: &nbsp&nbsp&nbsp&nbspcolor = color;<br>8: &nbsp&nbsp}<br>9:&nbsp&nbsp public static void main(String[] args) {<br>10: &nbsp&nbsp&nbsp&nbspEgret e = new Egret();<br>11: &nbsp&nbsp&nbsp&nbspSystem.out.println(\"Color:\" + e.color);<br>12: &nbsp&nbsp} <br>13: }<br>";
+questions[11].choices[0] = "Color:";
+questions[11].choices[1] = "Color:null";
+questions[11].choices[2] = "Color:White";
+questions[11].choices[3] = "Compiler error on line 4.";
+questions[11].choices[4] = "Compiler error on line 10.";
+questions[11].choices[5] = "Compiler error on line 11.";
+questions[11].correctAnswers = [1];
+questions[12] = new Question();
+questions[12].question = "What is the output of the following program?<br>1: public class BearOrShark {<br>2:&nbsp&nbsp public stativ void main(String[] args) {<br>3:&nbsp&nbsp&nbsp&nbsp int luck = 10;<br>4:&nbsp&nbsp&nbsp&nbsp if((luck>10 ? luck++: --luck)&lt10) {<br>5: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspSystem.out.print(\"Bear\");<br>6: &nbsp&nbsp&nbsp&nbsp}<br>7: } }";
+questions[12].choices[0] = "Bear";
+questions[12].choices[1] = "Shark";
+questions[12].choices[2] = "BearShark";
+questions[12].choices[3] = "The code will not compile because of line 4.";
+questions[12].choices[4] = "The code will not compile because of line 6.";
+questions[12].choices[5] = "The code compile without issue but does not produce any output.";
+questions[12].correctAnswers = [2];
+questions[13] = new Question();
+questions[13].question = "Assuming we have a valid, non-null HenHouse object whose value is initialized by the blank line shown here, <br>which of the following are possible outputs of the application? (Choose all that apply)<br>1: class Chicken{}<br>2: interface HenHouse { public java.util.List&ltChicken> getChickens(); }<br>3: public class ChickenSong {<br>4: &nbsp&nbsppublic static void main(String[] args) {<br>5: &nbsp&nbsp&nbsp&nbspHenHouse house = ____________<br>6: &nbsp&nbsp&nbsp&nbspChicken chicken = house.getChickens().get(0);<br>7: &nbsp&nbsp&nbsp&nbspfor(int i = 0; i &lt house.getChickens().size();<br>8: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspchicken = house.getChickens().get(i++)){<br>9: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspSytem.out.println(\"Cluck\");<br>10: } } }<br>";
+questions[13].choices[0] = "The code will not compile because of line 6.";
+questions[13].choices[1] = "The code will not compile because of lines 7-8.";
+questions[13].choices[2] = "The application will compile but not produce any output.";
+questions[13].choices[3] = "The application will output Cluck exactly once.";
+questions[13].choices[4] = "The application will output Cluck more than once.";
+questions[13].choices[5] = "The application will compile but produce an exception at runtime.";
+questions[13].correctAnswers = [3, 4, 5];
+questions[14] = new Question();
+questions[14].question = "Which of the following statements can be inserted in the blank line so that the code will compile successfully? (Choose all that apply)<br>public interface CanSwim {}<br>public class Amphibian implements CanSwim {}<br>class Tadpole extends Amphibian {}<br>public class FindAllTadPole {<br> &nbsp&nbsppublic static void main(String[] args) {<br> &nbsp&nbsp&nbsp&nbspList&ltTadpole> tadpoles = new ArrayList&ltTadpole>();<br> &nbsp&nbsp&nbsp&nbspfor(Amphibian amphibian : tadpoles) {<br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp_________ tadpole = amphibian;<br>} } }";
+questions[14].choices[0] = "CanSwim";
+questions[14].choices[1] = "Long";
+questions[14].choices[2] = "Amphibian";
+questions[14].choices[3] = "Tadpole";
+questions[14].choices[4] = "Object";
+questions[14].correctAnswers = [0, 2, 4];
+questions[15] = new Question();
+questions[15].question = "What individual changes, if any, would allow the following code to compile? (Choose all that apply)<br>1: public interface Animal { public default String getName() { return null; } }<br>2: interface Mammal { public default String getName() { return null; } }<br>3: abstract class Otter implements Mammal, Animal {}<br>";
+questions[15].choices[0] = "The code compiles without issue.";
+questions[15].choices[1] = "Remove the default method modifier and method implementation on line 1.";
+questions[15].choices[2] = "Remove the default method modifier and method implementation on line 2.";
+questions[15].choices[3] = "Remove the default method modifier and method implementation on lines 1 and 2.";
+questions[15].choices[4] = "Change the return value on line 1 from null to \"Animal\".";
+questions[15].choices[5] = "Override the getName() method with an abstract method in the Otter class.";
+questions[15].choices[6] = "Override the getName() method with a concrete method in the Otter class.";
+questions[15].correctAnswers = [3, 5, 6];
+questions[16] = new Question();
+questions[16].question = "Which of the following lines can be inserted at line 11 to print true? (Choose all that apply)<br>10: public static void main(String[] args){<br>11:&nbsp&nbsp //INSERT CODE HERE<br>12: }<br>13: private static boolean test(Predicate&ltInteger> p) {<br>14: &nbsp&nbspreturn p.test(5);<br>15: }";
+questions[16].choices[0] = "System.out.println(test(i -> i == 5));";
+questions[16].choices[1] = "System.out.println(test(i -> {i == 5;}));";
+questions[16].choices[2] = "System.out.println(test((i) -> i == 5));";
+questions[16].choices[3] = "System.out.println(test((int i) -> i == 5));";
+questions[16].choices[4] = "System.out.println(test((int i) -> {return i == 5;}));";
+questions[16].choices[5] = "System.out.println(test((i) -> {return i == 5;}));";
+questions[16].correctAnswers = [0, 2, 5];
+questions[17] = new Question();
+questions[17].question = "Which of the following print out a date representing April 1, 2015? (Choose all that apply)";
+questions[17].choices[0] = "System.out.println(LocalDate.of(2015, Calandar.APRIL, 1));";
+questions[17].choices[1] = "System.out.println(LocalDate.of(2015, Month.APRIL, 1));";
+questions[17].choices[2] = "System.out.println(LocalDate.of(2015, 3, 1));";
+questions[17].choices[3] = "System.out.println(LocalDate.of(2015, 4, 1));";
+questions[17].choices[4] = "System.out.println(new LocalDate(2015, 3, 1));";
+questions[17].choices[5] = "System.out.println(new LocalDate(2015, 4, 1));";
+questions[17].correctAnswers = [1, 3];
+questions[18] = new Question();
+questions[18].question = "Bytecode is in a file with which extension?";
+questions[18].choices[0] = ".bytecode";
+questions[18].choices[1] = ".bytes";
+questions[18].choices[2] = ".class";
+questions[18].choices[3] = ".exe";
+questions[18].choices[4] = ".javac";
+questions[18].choices[5] = ".java";
+questions[18].correctAnswers = [2];
+questions[19] = new Question();
+questions[19].question = "Which of the following are checked exceptions? (Choose all that apply)";
+questions[19].choices[0] = "Exception";
+questions[19].choices[1] = "IllegalArgumentException";
+questions[19].choices[2] = "IOExceptio";
+questions[19].choices[3] = "NullPointerException";
+questions[19].choices[4] = "NumberFormatException";
+questions[19].choices[5] = "StackOverflowError";
+questions[19].correctAnswers = [0, 2];    
+    setDivText(questions[0]);
+    setButtons(questions[0]);
+  }
+  
+  function setDivText(q) {
+    body.innerHTML += currentQuestion + 1 + ".<br>";
+    body.innerHTML += q.question + '<br><br><hr size="1">';
+  
+    for (var i = 0; i < q.choices.length; i++) {
+      if (contains(q.userAnswers, i) && q.visited) {
+        body.innerHTML +=
+          convertChar(i) +
+          '<input type=\'checkbox\' checked="true"name="answer" id="' +
+          i +
+          '">' +
+          q.choices[i] +
+          "</input><br><br>";
+      } else {
+        body.innerHTML +=
+          convertChar(i) +
+          '<input type=\'checkbox\' name="answer" id="' +
+          i +
+          '"><br>' +
+          q.choices[i] +
+          '</input><br><hr size="1">';
+      }
+    }
+  
+    q.visited = true;
+  }
+  
+  function contains(array, v){
+        for(var i = 0; i < array.length; i++){
+          if(array[i] == v){
+             return true;
+          }
+        }
+        return false;
+      }
+  
+  function convertChar(a) {
+    switch (a) {
+      case 0:
+      case "0":
+        return "A";
+      case 1:
+      case "1":
+        return "B";
+      case 2:
+      case "2":
+        return "C";
+      case 3:
+      case "3":
+        return "D";
+      case 4:
+      case "4":
+        return "E";
+      case 5:
+      case "5":
+        return "F";
+      case 6:
+      case "6":
+        return "G";
+      case 7:
+      case "7":
+        return "H";
+      case 8:
+      case "8":
+        return "I";
+      case 9:
+      case "9":
+        return "J";
+      case 10:
+      case "10":
+        return "J";
+      case 11:
+      case "11":
+        return "L";
+        
+       
+    }
+  }
+  
+  function setButtons(q) {
+    if (q == questions[0]) {
+      if (questions.length > 1) {
+        body.innerHTML += '<button onclick="nextQuestion()">NEXT</button>';
+      } else {
+        body.innerHTML += '<button onclick="submit()">SUBMIT</button>';
+      }
+    } else if (q == questions[questions.length - 1]) {
+      body.innerHTML += '<button onclick="previousQuestion()">PREVIOUS</button>';
+      body.innerHTML += '<button onclick="submit()">SUBMIT</button>';
+    } else {
+      body.innerHTML += '<button onclick="previousQuestion()">PREVIOUS</button>';
+      body.innerHTML += '<button onclick="nextQuestion()">NEXT</button>';
+    }
+  }
+  
+  function nextQuestion() {
+    setUserAnswers();
+    body.innerHTML = "";
+    currentQuestion++;
+    setDivText(questions[currentQuestion]);
+    setButtons(questions[currentQuestion]);
+    
+  }
+  
+  function previousQuestion() {
+    setUserAnswers()
+    body.innerHTML = "";
+    currentQuestion--;
+    setDivText(questions[currentQuestion]);
+    setButtons(questions[currentQuestion]);
+    
+  }
+  
+  function setUserAnswers() {
+    var q = questions[currentQuestion];
+    var boxes = document.getElementsByTagName('input');
+    q.userAnswers = [];
+    for(var i = 0; i < boxes.length; i++){
+      if(boxes[i].checked){
+        q.userAnswers.push(i);
+      }
+    }
+  }
+  
+  function checkQuiz() {
+    var total = 0;
+    
+    for(var i = 0; i < questions.length; i++){
+      var q = questions[i];
+      if(arrayEquals(q.userAnswers, q.correctAnswers)){
+        total++;
+      }
+    }
+    
+    return total;
+  }
+  
+  function arrayEquals(a, b){
+    if(a.length != b.length){
+      return false;
+    }
+    for (var i = 0; i < a.length; i++) {
+      if(a[i] != b[i]){
+        return false;   
+      }
+    }
+    return true;
+  }
+  
+  function reloadPage() {
+    location = location;
+  }
+  
+  function submit() {
+    setUserAnswers();
+  
+    body.innerHTML =
+      "You got " +
+      checkQuiz() +
+      " out of " +
+      questions.length +
+      ' correct.<br><hr size="3">';
+    for (var i = 0; i < questions.length; i++) {
+      body.innerHTML += i + 1 + ". ";
+        body.innerHTML += questions[i].question + "<br><br>";
+        body.innerHTML += "Your Answers: <br>";
+      
+        for(var j = 0; j < questions[i].userAnswers.length; j++){
+          body.innerHTML += questions[i].choices[questions[i].userAnswers[j]] + "<br>";
+        }
+      
+        //body.innerHTML += questions[i].choices[questions[i].userAnswer] + "<br>";
+        body.innerHTML += "Correct Answers: <br>";
+      
+        for(var j = 0; j < questions[i].correctAnswers.length; j++){
+          body.innerHTML += questions[i].choices[questions[i].correctAnswers[j]] + "<br>";
+        }
+      
+        //body.innerHTML +=
+          questions[i].choices[questions[i].correctAnswer] + "<br>";
+        body.innerHTML += '<hr size="3">';
+    }
+    body.innerHTML += '<button onclick="reloadPage()">START OVER</button>';
+  }
+</script>
+</html>
