@@ -141,7 +141,7 @@ questions[11].choices[4] = "Compiler error on line 10.";
 questions[11].choices[5] = "Compiler error on line 11.";
 questions[11].correctAnswers = [1];
 questions[12] = new Question();
-questions[12].question = "What is the output of the following program?<br>1: public class BearOrShark {<br>2:&nbsp&nbsp public static void main(String[] args) {<br>3:&nbsp&nbsp&nbsp&nbsp int luck = 10;<br>4:&nbsp&nbsp&nbsp&nbsp if((luck>10 ? luck++: --luck)&lt10) {<br>5: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspSystem.out.print(\"Bear\");<br>6: &nbsp&nbsp&nbsp&nbsp}<br>7: } }";
+questions[12].question = "What is the output of the following program?<br>1: public class BearOrShark {<br>2:&nbsp&nbsp public static void main(String[] args) {<br>3:&nbsp&nbsp&nbsp&nbsp int luck = 10;<br>4:&nbsp&nbsp&nbsp&nbsp if((luck>10 ? luck++: --luck)&lt10) {<br>5: &nbsp&nbsp&nbsp&nbsp&nbsp&nbspSystem.out.print(\"Bear\");<br>6: &nbsp&nbsp&nbsp&nbsp}if(luck<10) System.out.print(\"Shark\");<br>7: } }";
 questions[12].choices[0] = "Bear";
 questions[12].choices[1] = "Shark";
 questions[12].choices[2] = "BearShark";
