@@ -1,0 +1,363 @@
+<html>
+<head>
+  <h1 align="center">QUIZ</h1>
+</head>
+
+<body onload="startup()" style="background-color:#bbccdd;font-weight:bold;font-size:22px;">
+  <pre style="white-space:pre-wrap;"><code>
+  <div id="docBody"style="overflow:visible;"></div>
+</code></pre>
+</body>
+
+<script>
+  function Question() {
+    this.question = "";
+    this.choices = [];
+    this.correctAnswers = [];
+    this.userAnswers = [];
+    this.visited = false;
+  }
+  
+  var body;
+  
+  var questions = [];
+  
+  var currentQuestion;
+  
+  function startup() {
+    currentQuestion = 0;
+  
+    body = document.getElementById("docBody");
+
+questions[0] = new Question();
+questions[0].question = "Which of the following are valid Java identifiers? (Choose all that apply)<br>";
+questions[0].choices[0] = "A$B";
+questions[0].choices[1] = "_helloWorld";
+questions[0].choices[2] = "true";
+questions[0].choices[3] = "java.lang";
+questions[0].choices[4] = "Public";
+questions[0].choices[5] = "1980_s";
+questions[0].correctAnswers = [0, 1, 4];
+questions[1] = new Question();
+questions[1].question = "What is the output of the following program?<br>1: public class WaterBottle {<br>2: private String brand;<br>3: private boolean empty;<br>4: public static void main(String[] args) {<br>5:     WaterBottle wb = new WaterBottle();<br>6:     System.out.print(\"Empty = \" + wb.empty();<br>7:     System.out.print(\", Brand = \" + wb.brand);<br>8: } }<br>";
+questions[1].choices[0] = "Line 6 generates a compiler error.";
+questions[1].choices[1] = "Line 7 generates a compiler error.";
+questions[1].choices[2] = "There is no output.";
+questions[1].choices[3] = "Empty = false, Brand = null";
+questions[1].choices[4] = "Empty = false, Brand =";
+questions[1].choices[5] = "Empty = null, Brand = null";
+questions[1].correctAnswers = [3];
+questions[2] = new Question();
+questions[2].question = "Which of the following are true? (Choose all that apply)<br>4: short numPets = 5;<br>5: int numGrains = 5.6;<br>6: String name = \"Scruffy\";<br>7: numPets.length();<br>8: numGrains.length();<br>9: name.length();<br>";
+questions[2].choices[0] = "Line 4 generates a compiler error.";
+questions[2].choices[1] = "Line 5 generates a compiler error.";
+questions[2].choices[2] = "Line 6 generates a compiler error.";
+questions[2].choices[3] = "Line 7 generates a compiler error.";
+questions[2].choices[4] = "Line 8 generates a compiler error.";
+questions[2].choices[5] = "Line 9 generates a compiler error.";
+questions[2].choices[6] = "The code compiles as is.";
+questions[2].correctAnswers = [1, 3, 4];
+questions[3] = new Question();
+questions[3].question = "Given the following class, which of the following is true? (Choose all that apply)<br>1: Public class Snake {<br>2:<br>3:     public void shed(boolean time) {<br>4:<br>5:         if(time) {<br>6:<br>7:        }<br>8:         System.out.println(result);<br>9:<br>10:     }<br>11: }<br>";
+questions[3].choices[0] = "If String result = \"done\"; is inserted on line 2, the code will compile.";
+questions[3].choices[1] = "If String result = \"done\"; is inserted on line 4, the code will compile.";
+questions[3].choices[2] = "If String result = \"done\"; is inserted on line 6, the code will compile.";
+questions[3].choices[3] = "If String result = \"done\"; is inserted on line 9, the code will compile.";
+questions[3].choices[4] = "None of the above changes will make the code compile.";
+questions[3].correctAnswers = [0, 1];
+questions[4] = new Question();
+questions[4].question = "Given the following classes, which of the following can independently replace INSERT IMPORTS HERE to make the code compile? (Choose all that apply)<br><br>package aquarium;<br>public class Tank { }<br><br>package aquarium.jellies;<br>public class Jelly { }<br><br>package visitor;<br>INSERT IMPORTS HERE<br>public class AquariumVisitor {<br>    public void admire(Jelly jelly) { } }";
+questions[4].choices[0] = "import aquarium.*;";
+questions[4].choices[1] = "import aquarium.*.Jelly;";
+questions[4].choices[2] = "import aquarium.jellies.Jelly;";
+questions[4].choices[3] = "import aquarium.jellies.*;";
+questions[4].choices[4] = "import aquarium.jellies.Jelly.*;";
+questions[4].choices[5] = "None of these can make the code compile.";
+questions[4].correctAnswers = [2, 3];
+questions[5] = new Question();
+questions[5].question = "Given the following classes, what is the maximum number of imports that can be removed and have the code compile?<br>package aquarium; public class Water { }<br><br>package aquarium;<br>import java.lang.*<br>import java.lang.System;<br>import aquarium.Water;<br>import aquarium.*;<br>public class Tank {<br>    public void print(Water water) {<br>        System.out.println(water); } }<br>";
+questions[5].choices[0] = "0";
+questions[5].choices[1] = "1";
+questions[5].choices[2] = "2";
+questions[5].choices[3] = "3";
+questions[5].choices[4] = "4";
+questions[5].choices[5] = "Does not compile.";
+questions[5].correctAnswers = [4];
+questions[6] = new Question();
+questions[6].question = "Given the following classes, which of the following snippets can be inserted in place of INSERT IMPORTS HERE and have the code compile? (choose all that apply)<br>package aquarium;<br>public class Water {<br>    boolean salty = false;<br>}<br>package aquarium.jellies;<br>public class Water {<br>    boolean salty = true;<br>}<br>package employee;<br>    INSERT IMPORTS HERE<br>public class WaterFiller {<br>    Water water;<br>}<br>";
+questions[6].choices[0] = "import aquarium.*;";
+questions[6].choices[1] = "import aquarium.Water; <br>import aquarium.jellies.*;";
+questions[6].choices[2] = "import aquarium.*;<br>import aquarium.jellies.Water;<br>";
+questions[6].choices[3] = "import aquarium.*;<br>import aquarium.jellies.*;";
+questions[6].choices[4] = "import aquarium.Water;<br>import aquarium.jellies.Water;<br>";
+questions[6].choices[5] = "None of these imports can make the code compile.";
+questions[6].correctAnswers = [0, 1, 2];
+questions[7] = new Question();
+questions[7].question = "Given the following class, which of the following prints out Blue Jay? (Choose all that apply)<br>public class BirdDisplay {<br>    public static void main(String[] name) {<br>        System.out.println(name[1]);<br>} }<br>";
+questions[7].choices[0] = "java BirdDisplay Sparrow Blue Jay<br>";
+questions[7].choices[1] = "java BirdDisplay Sparrow “Blue Jay”<br>";
+questions[7].choices[2] = "java BirdDisplay Blue Jay Sparrow";
+questions[7].choices[3] = "java BirdDisplay “Blue Jay” Sparrow";
+questions[7].choices[4] = "java BirdDisplay.class Sparrow “Blue Jay”";
+questions[7].choices[5] = "java BirdDisplay.class “Blue Jay” Sparrow";
+questions[7].choices[6] = "Does not compile.";
+questions[7].correctAnswers = [1];
+questions[8] = new Question();
+questions[8].question = "Which of the following legally fill in the blank so you can run the main() method from the command line? (Choose all that apply)<br>public static void main(________)<br>";
+questions[8].choices[0] = "String[] _names";
+questions[8].choices[1] = "String[] 123<br>";
+questions[8].choices[2] = "String abc[]";
+questions[8].choices[3] = "String _Names[]";
+questions[8].choices[4] = "String… $n";
+questions[8].choices[5] = "String names";
+questions[8].choices[6] = "None of the above.";
+questions[8].correctAnswers = [0, 2, 3, 4];
+questions[9] = new Question();
+questions[9].question = "Which of the following are legal entry point methods that can be run from the command line? (Choose all that apply)";
+questions[9].choices[0] = "private static void main(Sting[] args)";
+questions[9].choices[1] = "public static final main(String[] args)";
+questions[9].choices[2] = "public void main(String[] args)";
+questions[9].choices[3] = "public static void test(String[] args)";
+questions[9].choices[4] = "public static void main(String[] args)";
+questions[9].choices[5] = "public static main(String[] args)";
+questions[9].choices[6] = "None of the above.";
+questions[9].correctAnswers = [4];
+questions[10] = new Question();
+questions[10].question = "Which of the following are true? (Choose all that apply)";
+questions[10].choices[0] = "An instance variable of type double defaults to null.";
+questions[10].choices[1] = "An instance variable of type int defaults to null.";
+questions[10].choices[2] = "An instance variable of type String defaults to null.";
+questions[10].choices[3] = "An instance variable of type double defaults to 0.0.";
+questions[10].choices[4] = "An instance variable of type int defaults to 0.0.";
+questions[10].choices[5] = "An instance variable of type String defaults to 0.0.";
+questions[10].choices[6] = "None of the above.";
+questions[10].correctAnswers = [2, 3];
+questions[11] = new Question();
+questions[11].question = "Which of the following are true? (Choose all that apply)<br>";
+questions[11].choices[0] = "A local variable of type boolean defaults to null.";
+questions[11].choices[1] = "A local variable of type float defaults to 0.";
+questions[11].choices[2] = "A local variable of type Object defaults to null.";
+questions[11].choices[3] = "A local variable of type boolean defaults to false.";
+questions[11].choices[4] = "A local variable of type boolean defaults to true.";
+questions[11].choices[5] = "A local variable of type float defaults to 0.0.";
+questions[11].choices[6] = "None of the above.";
+questions[11].correctAnswers = [6];
+questions[12] = new Question();
+questions[12].question = "Which of the following are true? (Choose all that apply)";
+questions[12].choices[0] = "An instance variable of type boolean defaults to false.";
+questions[12].choices[1] = "An instance variable of type boolean defaults to true.";
+questions[12].choices[2] = "An instance variable of type boolean defaults to null.";
+questions[12].choices[3] = "An instance variable of type int defaults to 0.";
+questions[12].choices[4] = "An instance variable of type int defaults to 0.0.";
+questions[12].choices[5] = "An instance variable of type int defaults to null.";
+questions[12].choices[6] = "None of the above.";
+questions[12].correctAnswers = [0, 3];
+questions[13] = new Question();
+questions[13].question = "Given the following class in the file /my/directory/named/A/Bird.java:<br>INSERT CODE HERE<br>public class Bird { }<br><br>Which of the following replaces INSERT CODE HERE if we compile from /my/directory? (Choose all that apply)<br>";
+questions[13].choices[0] = "package my.directory.named.a;";
+questions[13].choices[1] = "package my.directory.named.A;";
+questions[13].choices[2] = "package named.a;";
+questions[13].choices[3] = "package named.A;";
+questions[13].choices[4] = "package a;";
+questions[13].choices[5] = "package A;";
+questions[13].choices[6] = "Does not compile.";
+questions[13].correctAnswers = [3];
+questions[14] = new Question();
+questions[14].question = "Which of the following lines of code compile? (Choose all that apply)<br>";
+questions[14].choices[0] = "int i1 = 1_234;";
+questions[14].choices[1] = "double d1 = 1_234_.0;";
+questions[14].choices[2] = "double d2 = 1_234._0;";
+questions[14].choices[3] = "double d3 = 1_234.0_;";
+questions[14].choices[4] = "double d4 = 1_234.0;";
+questions[14].choices[5] = "None of the above.";
+questions[14].correctAnswers = [0, 4];    
+    setDivText(questions[0]);
+    setButtons(questions[0]);
+  }
+  
+  function setDivText(q) {
+    body.innerHTML += currentQuestion + 1 + ".<br>";
+    body.innerHTML += q.question + '<br><br><hr size="1">';
+  
+    for (var i = 0; i < q.choices.length; i++) {
+      if (contains(q.userAnswers, i) && q.visited) {
+        body.innerHTML +=
+          convertChar(i) +
+          '<input type=\'checkbox\' checked="true"name="answer" id="' +
+          i +
+          '">' +
+          q.choices[i] +
+          "</input><br><br>";
+      } else {
+        body.innerHTML +=
+          convertChar(i) +
+          '<input type=\'checkbox\' name="answer" id="' +
+          i +
+          '"><br>' +
+          q.choices[i] +
+          '</input><br><hr size="1">';
+      }
+    }
+  
+    q.visited = true;
+  }
+  
+  function contains(array, v){
+        for(var i = 0; i < array.length; i++){
+          if(array[i] == v){
+             return true;
+          }
+        }
+        return false;
+      }
+  
+  function convertChar(a) {
+    switch (a) {
+      case 0:
+      case "0":
+        return "A";
+      case 1:
+      case "1":
+        return "B";
+      case 2:
+      case "2":
+        return "C";
+      case 3:
+      case "3":
+        return "D";
+      case 4:
+      case "4":
+        return "E";
+      case 5:
+      case "5":
+        return "F";
+      case 6:
+      case "6":
+        return "G";
+      case 7:
+      case "7":
+        return "H";
+      case 8:
+      case "8":
+        return "I";
+      case 9:
+      case "9":
+        return "J";
+      case 10:
+      case "10":
+        return "J";
+      case 11:
+      case "11":
+        return "L";
+        
+       
+    }
+  }
+  
+  function setButtons(q) {
+    if (q == questions[0]) {
+      if (questions.length > 1) {
+        body.innerHTML += '<button onclick="nextQuestion()">NEXT</button>';
+      } else {
+        body.innerHTML += '<button onclick="submit()">SUBMIT</button>';
+      }
+    } else if (q == questions[questions.length - 1]) {
+      body.innerHTML += '<button onclick="previousQuestion()">PREVIOUS</button>';
+      body.innerHTML += '<button onclick="submit()">SUBMIT</button>';
+    } else {
+      body.innerHTML += '<button onclick="previousQuestion()">PREVIOUS</button>';
+      body.innerHTML += '<button onclick="nextQuestion()">NEXT</button>';
+    }
+  }
+  
+  function nextQuestion() {
+    setUserAnswers();
+    body.innerHTML = "";
+    currentQuestion++;
+    setDivText(questions[currentQuestion]);
+    setButtons(questions[currentQuestion]);
+    
+  }
+  
+  function previousQuestion() {
+    setUserAnswers()
+    body.innerHTML = "";
+    currentQuestion--;
+    setDivText(questions[currentQuestion]);
+    setButtons(questions[currentQuestion]);
+    
+  }
+  
+  function setUserAnswers() {
+    var q = questions[currentQuestion];
+    var boxes = document.getElementsByTagName('input');
+    q.userAnswers = [];
+    for(var i = 0; i < boxes.length; i++){
+      if(boxes[i].checked){
+        q.userAnswers.push(i);
+      }
+    }
+  }
+  
+  function checkQuiz() {
+    var total = 0;
+    
+    for(var i = 0; i < questions.length; i++){
+      var q = questions[i];
+      if(arrayEquals(q.userAnswers, q.correctAnswers)){
+        total++;
+      }
+    }
+    
+    return total;
+  }
+  
+  function arrayEquals(a, b){
+    if(a.length != b.length){
+      return false;
+    }
+    for (var i = 0; i < a.length; i++) {
+      if(a[i] != b[i]){
+        return false;   
+      }
+    }
+    return true;
+  }
+  
+  function reloadPage() {
+    location = location;
+  }
+  
+  function submit() {
+    setUserAnswers();
+  
+    body.innerHTML =
+      "You got " +
+      checkQuiz() +
+      " out of " +
+      questions.length +
+      ' correct.<br><hr size="3">';
+    for (var i = 0; i < questions.length; i++) {
+      body.innerHTML += i + 1 + ". ";
+        body.innerHTML += questions[i].question + "<br><br>";
+        body.innerHTML += "Your Answers: <br>";
+      
+        for(var j = 0; j < questions[i].userAnswers.length; j++){
+          body.innerHTML += questions[i].choices[questions[i].userAnswers[j]] + "<br>";
+        }
+      
+        //body.innerHTML += questions[i].choices[questions[i].userAnswer] + "<br>";
+        body.innerHTML += "Correct Answers: <br>";
+      
+        for(var j = 0; j < questions[i].correctAnswers.length; j++){
+          body.innerHTML += questions[i].choices[questions[i].correctAnswers[j]] + "<br>";
+        }
+      
+        //body.innerHTML +=
+          questions[i].choices[questions[i].correctAnswer] + "<br>";
+        body.innerHTML += '<hr size="3">';
+    }
+    body.innerHTML += '<button onclick="reloadPage()">START OVER</button>';
+  }
+</script>
+</html>
