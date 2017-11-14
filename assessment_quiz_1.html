@@ -384,7 +384,13 @@ questions[19].correctAnswers = [0, 2];
         body.innerHTML += "Your Answers: <br>";
       
         for(var j = 0; j < questions[i].userAnswers.length; j++){
-          body.innerHTML += questions[i].choices[questions[i].userAnswers[j]] + "<br>";
+          if(questions[i].correctAnswers.indexOf(questions[i].userAnswers[j]) > -1){
+            body.innerHTML += "<font color='green'>" + questions[i].choices[questions[i].userAnswers[j]] + "</font>" + "<br>";
+          }else{
+            body.innerHTML += "<font color='red'>" + questions[i].choices[questions[i].userAnswers[j]] + "</font>" + "<br>";
+          }
+          
+          
         }
       
         //body.innerHTML += questions[i].choices[questions[i].userAnswer] + "<br>";
