@@ -1,0 +1,527 @@
+<head>
+  <h1 align="center">QUIZ</h1>
+</head>
+
+<body onload="startup()" style="background-color:#bbccdd;font-weight:bold;font-size:22px;">
+  <pre style="white-space:pre-wrap;"><code>
+  <div id="docBody"style="overflow:visible;"></div>
+</code></pre>
+</body>
+
+<script>
+  function Question() {
+    this.question = "";
+    this.choices = [];
+    this.correctAnswers = [];
+    this.userAnswers = [];
+    this.visited = false;
+  }
+  
+  var body;
+  
+  var questions = [];
+  
+  var currentQuestion;
+  
+  function startup() {
+    currentQuestion = 0;
+  
+    body = document.getElementById("docBody");
+
+   questions[0] = new Question();
+questions[0].question = "What is output by the following code? (Choose all that apply)<br>1:    public class Fish {<br>2:        public static void main(String[] args) {<br>3:            int numFish = 4;<br>4:            String fishType = \"tuna\";<br>5:            String anotherFish = numFish + 1;<br>6:            System.out.println(anotherFish + \" \" + fishType);<br>7:            Systen.out.println(numFish + \" \" + 1);<br>8:    } }";
+questions[0].choices[0] = "4 1";
+questions[0].choices[1] = "41";
+questions[0].choices[2] = "5";
+questions[0].choices[3] = "5 tuna";
+questions[0].choices[4] = "51tuna";
+questions[0].choices[5] = "The code does not compile.";
+questions[0].correctAnswers = [6];
+questions[1] = new Question();
+questions[1].question = "What is output by the following code? (Choose all that apply)<br>3:    String s = \"Hello\";<br>4:    String t = new String(s);<br>5:    if(\"Hello\".equals(s)) System.out.println(\"one\");<br>6:    if(t == s) System.out.println(\"two\");<br>7:    if(t.equals(s)) System.out.println(\"three\");<br>8:    if(\"Hello\" == s) System.out.println(\"four\");<br>9:    if(\"Hello\" == t) System.out.println(\"five\");";
+questions[1].choices[0] = "one";
+questions[1].choices[1] = "two";
+questions[1].choices[2] = "three";
+questions[1].choices[3] = "four";
+questions[1].choices[4] = "five";
+questions[1].choices[5] = "The code does not compile";
+questions[1].correctAnswers = [0,2,3];
+questions[2] = new Question();
+questions[2].question = "Which are true statements (Choose all that apply)";
+questions[2].choices[0] = "An immutable object can be modified.";
+questions[2].choices[1] = "An immutable object cannot be modified.";
+questions[2].choices[2] = "An immutable object can be garbage collected.";
+questions[2].choices[3] = "An immutable object cannot be garbage collected.<br>";
+questions[2].choices[4] = "String is immutable.";
+questions[2].choices[5] = "StringBuffer is immutable.";
+questions[2].choices[6] = "StringBuilder is immutable.<br>";
+questions[2].correctAnswers = [1,2,4];
+questions[3] = new Question();
+questions[3].question = "What is the result of the following code?<br>7:    StringBuilder sb = new StringBuilder();<br>8:    sb.append(\"aaa\").insert(1, \"bb\").insert(4, \"ccc\");<br>9:    System.out.println(sb);";
+questions[3].choices[0] = "abbaaccc";
+questions[3].choices[1] = "abbaccca";
+questions[3].choices[2] = "bbaaaccc";
+questions[3].choices[3] = "bbaaccca";
+questions[3].choices[4] = "An exception is thrown.";
+questions[3].choices[5] = "The code does not compile.";
+questions[3].correctAnswers = [1];
+questions[4] = new Question();
+questions[4].question = "What is the result of the following code?<br>2:    String s1 = \"java\";<br>3:    StringBuilder s2 = new StringBuilder(\"java\");<br>4:    if(s1 == s2)<br>5:        System.out.print(\"1\");<br>6:    if(s1.equals(s2))<br>7:        System.out.print(\"2\");";
+questions[4].choices[0] = "1";
+questions[4].choices[1] = "2";
+questions[4].choices[2] = "12";
+questions[4].choices[3] = "No output is printed.";
+questions[4].choices[4] = "An exception is thrown.";
+questions[4].choices[5] = "The code does not compile.";
+questions[4].correctAnswers = [5];
+questions[5] = new Question();
+questions[5].question = "What is the result of the following code?<br>public class Lion {<br>    public void roar(String roar1, StringBuilder roar2) {<br>        roar1.concat(\"!!!\");<br>        roar2.append(\"!!!\");<br>    }<br>public static void main(String[] args) {<br>    String roar1 = \"roar\";<br>    StringBuilder roar2 = new StringBuilder(\"roar\");<br>    new Lion().roar(roar1, roar2);<br>    Systen.out.println(roar1 + \" \" + roar2);;<br>} }";
+questions[5].choices[0] = "roar roar";
+questions[5].choices[1] = "roar roar!!!";
+questions[5].choices[2] = "roar!!! roar";
+questions[5].choices[3] = "roar!!! roar!!!";
+questions[5].choices[4] = "An exception is thrown.<br>";
+questions[5].choices[5] = "The code does not compile.";
+questions[5].correctAnswers = [1];
+questions[6] = new Question();
+questions[6].question = "Which are the results of the following code? (Choose all that apply)<br>String letters = \"abcdef\";<br>System.out.println(letters.length());<br>System.out.println(letters.charAt(3));<br>System.out.println(letters.charAt(6));";
+questions[6].choices[0] = "5";
+questions[6].choices[1] = "6";
+questions[6].choices[2] = "c";
+questions[6].choices[3] = "d";
+questions[6].choices[4] = "An exception is thrown.";
+questions[6].choices[5] = "The code does not compile.";
+questions[6].correctAnswers = [1,3,4];
+questions[7] = new Question();
+questions[7].question = "Which are the results of the following code? (Choose all that apply)<br>String numbers = \"012345678\";<br>System.out.println(numbers.substring(1, 3));<br>System.out.println(numbers.substring(7, 7));<br>System.out.println(numbers.substring(7));";
+questions[7].choices[0] = "12";
+questions[7].choices[1] = "123";
+questions[7].choices[2] = "7";
+questions[7].choices[3] = "78";
+questions[7].choices[4] = "A blank line.";
+questions[7].choices[5] = "An exception is thrown.";
+questions[7].choices[6] = "The code does not compile.";
+questions[7].correctAnswers = [0,3,4];
+questions[8] = new Question();
+questions[8].question = "What is the result of the following code?<br>3:    String s = \"purr\";<br>4:    s.toUpperCase();<br>5:    s.trim();<br>6:    s.substring(1, 3);<br>7:    s += \"two\";<br>8:    System.out.println(s.length());";
+questions[8].choices[0] = "2";
+questions[8].choices[1] = "4";
+questions[8].choices[2] = "8";
+questions[8].choices[3] = "10";
+questions[8].choices[4] = "An exception is thrown.";
+questions[8].choices[5] = "The code does not compile.";
+questions[8].correctAnswers = [2];
+questions[9] = new Question();
+questions[9].question = "What is the result of the following code? (Choose all that apply)<br>13:    String a = \"\";<br>14:    a += 2;<br>15:    a += 'c';<br>16:    a += false;<br>17:    if(a == \"2cfalse\") System.out.println(\"==\");<br>18:    if(a.equals(\"2cfalse\") System.out.println(\"equals\");";
+questions[9].choices[0] = "Compile error on line 14.";
+questions[9].choices[1] = "Compile error on line 15.";
+questions[9].choices[2] = "Compile error on line 16.";
+questions[9].choices[3] = "Compile error on another line.";
+questions[9].choices[4] = "==";
+questions[9].choices[5] = "equals";
+questions[9].choices[6] = "An exception is thrown.";
+questions[9].correctAnswers = [5];
+questions[10] = new Question();
+questions[10].question = "What is the result of the following code?<br>4:    int total = 0;<br>5:    StringBuilder letters = new StringBuilder(\"abcdefg\");<br>6:    total += letters.substring(1, 2).length();<br>7:    total += letters.substring(6, 6).length();<br>8:    total += letters.substring(6, 5).length();<br>9:    System.out.println(total);";
+questions[10].choices[0] = "1";
+questions[10].choices[1] = "2";
+questions[10].choices[2] = "3";
+questions[10].choices[3] = "7";
+questions[10].choices[4] = "An exception is thrown.";
+questions[10].choices[5] = "The code does not compile.";
+questions[10].correctAnswers = [4];
+questions[11] = new Question();
+questions[11].question = "What is the result of the following code? (Choose all that apply)<br>StringBuilder numbers = new StringBuilder(\"0123456789\");<br>numbers.delete(2, 8);<br>numbers.append(\"-\").insert(2, \"+\");<br>System.out.println(numbers);";
+questions[11].choices[0] = "01+80-";
+questions[11].choices[1] = "012+9-";
+questions[11].choices[2] = "012+-9";
+questions[11].choices[3] = "0123456789";
+questions[11].choices[4] = "An exception is thrown.<br>";
+questions[11].choices[5] = "The code does not compile.";
+questions[11].correctAnswers = [0];
+questions[12] = new Question();
+questions[12].question = "What is the result of the following code?<br>StringBuilder b = \"rumble\";<br>b.append(4).deleteCharAt(3).delete(3, b.length() - 1);<br>System.out.println(b)";
+questions[12].choices[0] = "rum";
+questions[12].choices[1] = "rum4";
+questions[12].choices[2] = "rumb4";
+questions[12].choices[3] = "rumble4";
+questions[12].choices[4] = "An exception is thrown.";
+questions[12].choices[5] = "The code does not compile.";
+questions[12].correctAnswers = [5];
+questions[13] = new Question();
+questions[13].question = "Which of the following can replace line 5 to print \"avaJ\"? (Choose all that apply)<br>3:    StringBuilder puzzle = new StringBuilder(\"Java\");<br>4:    //INSERT CODE HERE<br>5:    System.out.println(puzzle);";
+questions[13].choices[0] = "puzzle.reverse();";
+questions[13].choices[1] = "puzzle.append(\"vaJ$\").substring(0, 4);";
+questions[13].choices[2] = "puzzle.append(\"vaJ$\").delete(0, 3).deleteCharAt(puzzle.length() - 1);";
+questions[13].choices[3] = "puzzle.append(\"vaJ$\").delete(0, 3).deleteCharAt(puzzle.length());";
+questions[13].choices[4] = "None of the above.";
+questions[13].correctAnswers = [0,2];
+questions[14] = new Question();
+questions[14].question = "Which of these array declarations in not legal? (Choose all that apply)";
+questions[14].choices[0] = "int[][] scores = new int[5][];";
+questions[14].choices[1] = "Object[][][] cubbies = new Object[3][0][5];";
+questions[14].choices[2] = "String beans[] = new beans[6];";
+questions[14].choices[3] = "java.util.Date[] dates[] = new java.util.Date[2][];";
+questions[14].choices[4] = "int[][] types = new int[];";
+questions[14].choices[5] = "int[][] java = new int[][];";
+questions[14].correctAnswers = [2,4,5];
+questions[15] = new Question();
+questions[15].question = "Which of these compile when replacing line 8? (Choose all that apply)<br>7:    cgar[]c = new char[2];<br>8:    //INSERT CODE HERE";
+questions[15].choices[0] = "int length = c.capacity;";
+questions[15].choices[1] = "int length = c.capacity();<br>";
+questions[15].choices[2] = "int length = c.length;";
+questions[15].choices[3] = "int length = c.length();";
+questions[15].choices[4] = "int length = c.size;";
+questions[15].choices[5] = "int length = c.size();";
+questions[15].choices[6] = "None of the above.";
+questions[15].correctAnswers = [2];
+questions[16] = new Question();
+questions[16].question = "Which of these compile when replacing line 8? (Choose all that apply)<br>7:    ArrayList l = new ArrayList();<br>8:    //INSERT CODE HERE";
+questions[16].choices[0] = "int length = l.capacity;";
+questions[16].choices[1] = "int length = l.capacity();";
+questions[16].choices[2] = "int length = l.length;";
+questions[16].choices[3] = "int length = l.length();";
+questions[16].choices[4] = "int length = l.size;";
+questions[16].choices[5] = "int length = l.size();";
+questions[16].choices[6] = "None of the above.";
+questions[16].correctAnswers = [5];
+questions[17] = new Question();
+questions[17].question = "Which of the following are true? (Choose all that apply)";
+questions[17].choices[0] = "An array has a fixed size.";
+questions[17].choices[1] = "An ArrayList has a fixed size.";
+questions[17].choices[2] = "An array allows multiple dimensions.";
+questions[17].choices[3] = "An array is ordered.";
+questions[17].choices[4] = "An ArrayList is ordered.";
+questions[17].choices[5] = "An array is immutable.";
+questions[17].choices[6] = "An ArrayList is immutable.";
+questions[17].correctAnswers = [0,2,3,4];
+questions[18] = new Question();
+questions[18].question = "Which of the following are true? (Choose all that apply)";
+questions[18].choices[0] = "Two arrays with the same content are equal.";
+questions[18].choices[1] = "Two ArrayLists with the same content are equal.";
+questions[18].choices[2] = "If you call remove(0) using an empty ArrayList object, it will compile successfully.";
+questions[18].choices[3] = "If you call remove(0) using an empty ArrayList object, it will run successfully.";
+questions[18].choices[4] = "None of the above.";
+questions[18].correctAnswers = [1,2];
+questions[19] = new Question();
+questions[19].question = "What is the result of the following statements?<br>6:    List&ltString> list = new ArrayList&ltString>();<br>7:    list.add(\"one\");<br>8:    list.add(\"two\");<br>9:    list.add(7);<br>10:    for(String s : list) System.out.print(s);<br>";
+questions[19].choices[0] = "onetwo";
+questions[19].choices[1] = "onetwo7";
+questions[19].choices[2] = "onetwo followed by an exception";
+questions[19].choices[3] = "Compiler error on line 9.";
+questions[19].choices[4] = "Compiler error on line 10.";
+questions[19].correctAnswers = [3];
+questions[20] = new Question();
+questions[20].question = "What is the result of the following statements?<br>3:    ArrayList&ltInteger> values = new ArrayList&lt>();<br>4:    values.add(4);<br>5:    values.add(5);<br>6:    values.set(1, 6);<br>7:    values.remove(0);<br>8:    for(Integer v : values) System.out.print(v);";
+questions[20].choices[0] = "4";
+questions[20].choices[1] = "5";
+questions[20].choices[2] = "6";
+questions[20].choices[3] = "46";
+questions[20].choices[4] = "45";
+questions[20].choices[5] = "An exception is thrown.";
+questions[20].choices[6] = "The code does not compile.<br>";
+questions[20].correctAnswers = [2];
+questions[21] = new Question();
+questions[21].question = "What is the result of the following?<br>int[] random = {6, -4, 12, 0, -10);<br>int x = 12;<br>int y = Arrays.binarySearch(random, x);<br>System.out.println(y);";
+questions[21].choices[0] = "2";
+questions[21].choices[1] = "4";
+questions[21].choices[2] = "6";
+questions[21].choices[3] = "The result is undefined.";
+questions[21].choices[4] = "An exception is thrown.";
+questions[21].choices[5] = "The code does not compile.";
+questions[21].correctAnswers = [3];
+questions[22] = new Question();
+questions[22].question = "What is the result of the following?<br>4:    List&ltInteger> list = Arrays.asList(10, 4, -1, 5);<br>5:    Collections.sort(list);<br>6:    Integer array[] = list.toArray(new Integer[4]);<br>7:    System.out.println(array[0]);";
+questions[22].choices[0] = "-1";
+questions[22].choices[1] = "10";
+questions[22].choices[2] = "Compiler error on line 4.";
+questions[22].choices[3] = "Compiler error on line 5.";
+questions[22].choices[4] = "Compiler error on line 6.";
+questions[22].choices[5] = "An exception is thrown.";
+questions[22].correctAnswers = [0];
+questions[23] = new Question();
+questions[23].question = "What is the result of the following?<br>6:    String[] names = {\"Tom\", \"Dick\", \"Harry\"};<br>7:    List&ltString> list = names.asList();<br>8:    list.set(0, \"Sue\");<br>9:    System.out.println(names[0]);";
+questions[23].choices[0] = "Sue";
+questions[23].choices[1] = "Tom";
+questions[23].choices[2] = "Compiler error on line 7.";
+questions[23].choices[3] = "Compiler error on line 8.";
+questions[23].choices[4] = "An exception is thrown.";
+questions[23].correctAnswers = [2];
+questions[24] = new Question();
+questions[24].question = "What is the result of the following?<br>List&ltString> hex = Arrays.asList(\"30\", \"8\", \"3A\", \"FF\");<br>Collection.sort(hex);<br>int x = Collections.binarySearch(hex, \"8\");<br>int y = Collections.binarySearch(hex, \"3A\");<br>int z = Collections.binarySearch(hex, \"4F\");<br>System.out.println(x + \" \" + y + \" \" + z);";
+questions[24].choices[0] = "01-2";
+questions[24].choices[1] = "01-3";
+questions[24].choices[2] = "21-2";
+questions[24].choices[3] = "21-3";
+questions[24].choices[4] = "None of the above.";
+questions[24].choices[5] = "The code doesn't compile.";
+questions[24].correctAnswers = [3];
+questions[25] = new Question();
+questions[25].question = "Which of the following is a true statement about the following code? (Choose all that apply)<br>4:    List&ltInteger> ages = new ArrayList&lt>();<br>5:    ages.add(Integer.parseInt(\"5\"));<br>6:    ages.add(Integer.valueOf(\"6\"));<br>7:    ages.add(7);<br>8:    ages.add(null);<br>9:    for(int age : ages) System.out.print(age);";
+questions[25].choices[0] = "The code compiles.";
+questions[25].choices[1] = "The code throws a runtime exception.";
+questions[25].choices[2] = "Exactly one of the add statements uses autoboxing.";
+questions[25].choices[3] = "Exactly two of the add statements uses autoboxing.";
+questions[25].choices[4] = "Exactly three of the add statements uses autoboxing.";
+questions[25].correctAnswers = [0,1,3];
+questions[26] = new Question();
+questions[26].question = "What is the result of the following?<br>List&ltString> one = new ArrayList&ltString>();<br>one.add(\"abc\");<br>List&ltString> two = new ArrayList&lt>();<br>two.add(\"abc\");<br>if(one == two)<br>    System.out.println(\"A\");<br>else if(one.equals(two))<br>    System.out.println(\"B\");<br>else<br>    System.out.println(\"C\");";
+questions[26].choices[0] = "A";
+questions[26].choices[1] = "B";
+questions[26].choices[2] = "C";
+questions[26].choices[3] = "An exception is thrown.";
+questions[26].choices[4] = "The code does not compile.";
+questions[26].correctAnswers = [1];
+questions[27] = new Question();
+questions[27].question = "Which of the following can be inserted into the blank to create a date of June 21, 2014? (Choose all that apply)<br>import java.time.*;<br><br>public class StartOfSummer {<br>    <br>    public static void main(String[] args) {<br>    Local date = __________________________________<br>    }<br><br>}";
+questions[27].choices[0] = "new LocalDate(2014, 5, 21);";
+questions[27].choices[1] = "new LocalDate(2014, 6, 21);";
+questions[27].choices[2] = "LocalDate.of(2014, 5, 21);";
+questions[27].choices[3] = "LocalDate.of(2014, 6, 21);";
+questions[27].choices[4] = "LocalDate.of(2014, Calendar.JUNE, 21);";
+questions[27].choices[5] = "LocalDate.of(2014, Month.JUNE, 21);";
+questions[27].correctAnswers = [3,5];
+questions[28] = new Question();
+questions[28].question = "What is the output of the following code?<br>LocalDate date = localDate.parse(\"2018-04-30\", DateTimeFormatter.ISO_LOCAL_DATE);<br>date.plusDays(2);<br>date.plusHours(3);<br>System.out.println(date.getYear() + \" \" + date.getMonth() + \" \" + date.getDayOfMonth());";
+questions[28].choices[0] = "2018 APRIL 2";
+questions[28].choices[1] = "2018 APRIL 30";
+questions[28].choices[2] = "2018 MAY 2";
+questions[28].choices[3] = "The code does not compile.";
+questions[28].choices[4] = "A runtime exception is thrown.";
+questions[28].correctAnswers = [3];
+questions[29] = new Question();
+questions[29].question = "What is the output of the following code?<br>LocalDate date = LocalDate.of(2018, Month.APRIL, 40);<br>System.out.println(date.getYear() + \" \" + date.getMonth() + \" \" + date.getDayOfMonth());";
+questions[29].choices[0] = "2018 APRIL 4";
+questions[29].choices[1] = "2018 ARPIL 30";
+questions[29].choices[2] = "2018 MAY 10";
+questions[29].choices[3] = "Another date.";
+questions[29].choices[4] = "The code does not compile.";
+questions[29].choices[5] = "A runtime exception is thrown.";
+questions[29].correctAnswers = [5];
+questions[30] = new Question();
+questions[30].question = "What is the output of the following code?<br>LocalDate date = LocalDate.of(2018, Month.APRIL, 30);<br>date.plusDays(2);<br>date.plusYears(3);<br>System.out.println(date.getYear() + \" \" + date.getMonth() + \" \" + date.getDayOfMonth());";
+questions[30].choices[0] = "2018 APRIL 2";
+questions[30].choices[1] = "2018 APRIL 30";
+questions[30].choices[2] = "2018 MAY 2";
+questions[30].choices[3] = "2021 APRIL 2";
+questions[30].choices[4] = "2021 APRIL 30";
+questions[30].choices[5] = "2021 May 2";
+questions[30].choices[6] = "A runtime exception is thrown.";
+questions[30].correctAnswers = [1];
+questions[31] = new Question();
+questions[31].question = "What is the output of the following code?<br>LocalDateTime d = LocalDateTime.of(2015, 5, 10, 11, 22, 33);<br>Period p = Period.of(1, 2, 3);<br>d = d.minus(p);<br>DateTimeFormatter f = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);<br>System.out.println(d.format(f));";
+questions[31].choices[0] = "3/7/14 11:22 AM";
+questions[31].choices[1] = "5/10/15 11:22 AM";
+questions[31].choices[2] = "3/7/14";
+questions[31].choices[3] = "5/10/15";
+questions[31].choices[4] = "11:22 AM";
+questions[31].choices[5] = "The code does not compile.";
+questions[31].choices[6] = "A runtime exception is thrown.";
+questions[31].correctAnswers = [4];
+questions[32] = new Question();
+questions[32].question = "What is the output of the following code?<br>LocalDateTime d = LocalDateTime.of(2015, 5, 10, 11, 22, 33);<br>Period p = Period.ofDats(1).ofYears(2);<br>d = d.minus(p);<br>DateTimeFormatter f = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);<br>System.out.println(f.format(d));";
+questions[32].choices[0] = "5/9/13 11::22 AM";
+questions[32].choices[1] = "5/10/13 11:22 AM";
+questions[32].choices[2] = "5/9/14";
+questions[32].choices[3] = "5/10/14";
+questions[32].choices[4] = "The code does not compile.";
+questions[32].choices[5] = "A runtime exception is thrown.";
+questions[32].correctAnswers = [1];
+
+    
+    
+    setDivText(questions[0]);
+    setButtons(questions[0]);
+  }
+  
+  function setDivText(q) {
+    body.innerHTML += currentQuestion + 1 + ".<br>";
+    body.innerHTML += q.question + '<br><br><hr size="1">';
+  
+    for (var i = 0; i < q.choices.length; i++) {
+      if (contains(q.userAnswers, i) && q.visited) {
+        body.innerHTML +=
+          convertChar(i) +
+          '<input type=\'checkbox\' checked="true"name="answer" id="' +
+          i +
+          '">' +
+          q.choices[i] +
+          "</input><br><br>";
+      } else {
+        body.innerHTML +=
+          convertChar(i) +
+          '<input type=\'checkbox\' name="answer" id="' +
+          i +
+          '"><br>' +
+          q.choices[i] +
+          '</input><br><hr size="1">';
+      }
+    }
+  
+    q.visited = true;
+  }
+  
+  function contains(array, v){
+        for(var i = 0; i < array.length; i++){
+          if(array[i] == v){
+             return true;
+          }
+        }
+        return false;
+      }
+  
+  function convertChar(a) {
+    switch (a) {
+      case 0:
+      case "0":
+        return "A";
+      case 1:
+      case "1":
+        return "B";
+      case 2:
+      case "2":
+        return "C";
+      case 3:
+      case "3":
+        return "D";
+      case 4:
+      case "4":
+        return "E";
+      case 5:
+      case "5":
+        return "F";
+      case 6:
+      case "6":
+        return "G";
+      case 7:
+      case "7":
+        return "H";
+      case 8:
+      case "8":
+        return "I";
+      case 9:
+      case "9":
+        return "J";
+      case 10:
+      case "10":
+        return "J";
+      case 11:
+      case "11":
+        return "L";
+        
+       
+    }
+  }
+  
+  function setButtons(q) {
+    if (q == questions[0]) {
+      if (questions.length > 1) {
+        body.innerHTML += '<button onclick="nextQuestion()">NEXT</button>';
+      } else {
+        body.innerHTML += '<button onclick="submit()">SUBMIT</button>';
+      }
+    } else if (q == questions[questions.length - 1]) {
+      body.innerHTML += '<button onclick="previousQuestion()">PREVIOUS</button>';
+      body.innerHTML += '<button onclick="submit()">SUBMIT</button>';
+    } else {
+      body.innerHTML += '<button onclick="previousQuestion()">PREVIOUS</button>';
+      body.innerHTML += '<button onclick="nextQuestion()">NEXT</button>';
+    }
+  }
+  
+  function nextQuestion() {
+    setUserAnswers();
+    body.innerHTML = "";
+    currentQuestion++;
+    setDivText(questions[currentQuestion]);
+    setButtons(questions[currentQuestion]);
+    
+  }
+  
+  function previousQuestion() {
+    setUserAnswers()
+    body.innerHTML = "";
+    currentQuestion--;
+    setDivText(questions[currentQuestion]);
+    setButtons(questions[currentQuestion]);
+    
+  }
+  
+  function setUserAnswers() {
+    var q = questions[currentQuestion];
+    var boxes = document.getElementsByTagName('input');
+    q.userAnswers = [];
+    for(var i = 0; i < boxes.length; i++){
+      if(boxes[i].checked){
+        q.userAnswers.push(i);
+      }
+    }
+  }
+  
+  function checkQuiz() {
+    var total = 0;
+    
+    for(var i = 0; i < questions.length; i++){
+      var q = questions[i];
+      if(arrayEquals(q.userAnswers, q.correctAnswers)){
+        total++;
+      }
+    }
+    
+    return total;
+  }
+  
+  function arrayEquals(a, b){
+    if(a.length != b.length){
+      return false;
+    }
+    for (var i = 0; i < a.length; i++) {
+      if(a[i] != b[i]){
+        return false;   
+      }
+    }
+    return true;
+  }
+  
+  function reloadPage() {
+    location = location;
+  }
+  
+  function submit() {
+    setUserAnswers();
+  
+    body.innerHTML =
+      "You got " +
+      checkQuiz() +
+      " out of " +
+      questions.length +
+      ' correct.<br><hr size="3">';
+    for (var i = 0; i < questions.length; i++) {
+      body.innerHTML += i + 1 + ". ";
+        body.innerHTML += questions[i].question + "<br><br>";
+        body.innerHTML += "Your Answers: <br>";
+      
+        for(var j = 0; j < questions[i].userAnswers.length; j++){
+          if(questions[i].correctAnswers.indexOf(questions[i].userAnswers[j]) > -1){
+            body.innerHTML += "<font color='green'>" + questions[i].choices[questions[i].userAnswers[j]] + "</font>" + "<br>";
+          }else{
+            body.innerHTML += "<font color='red'>" + questions[i].choices[questions[i].userAnswers[j]] + "</font>" + "<br>";
+          }
+          
+          
+        }
+      
+        //body.innerHTML += questions[i].choices[questions[i].userAnswer] + "<br>";
+        body.innerHTML += "Correct Answers: <br>";
+      
+        for(var j = 0; j < questions[i].correctAnswers.length; j++){
+          body.innerHTML += questions[i].choices[questions[i].correctAnswers[j]] + "<br>";
+        }
+      
+        //body.innerHTML +=
+          questions[i].choices[questions[i].correctAnswer] + "<br>";
+        body.innerHTML += '<hr size="3">';
+    }
+    body.innerHTML += '<button onclick="reloadPage()">START OVER</button>';
+  }
+</script>
