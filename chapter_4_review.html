@@ -1,0 +1,493 @@
+<head>
+  <h1 align="center">QUIZ</h1>
+</head>
+
+<body onload="startup()" style="background-color:#bbccdd;font-weight:bold;font-size:22px;">
+  <pre style="white-space:pre-wrap;"><code>
+  <div id="docBody"style="overflow:visible;"></div>
+</code></pre>
+</body>
+
+<script>
+  function Question() {
+    this.question = "";
+    this.choices = [];
+    this.correctAnswers = [];
+    this.userAnswers = [];
+    this.visited = false;
+  }
+  
+  var body;
+  
+  var questions = [];
+  
+  var currentQuestion;
+  
+  function startup() {
+    currentQuestion = 0;
+  
+    body = document.getElementById("docBody");
+
+    questions[0] = new Question();
+questions[0].question = "Which of the following can fill in the blank in this code to make it compile? (Choose all that apply)<br>public class Ant {<br>    _____ void method() { }<br>}";
+questions[0].choices[0] = "default";
+questions[0].choices[1] = "final";
+questions[0].choices[2] = "private";
+questions[0].choices[3] = "Public";
+questions[0].choices[4] = "String zzz:";
+questions[0].correctAnswers = [1, 2];
+questions[1] = new Question();
+questions[1].question = "Which of the following compile? (Choose all that apply)";
+questions[1].choices[0] = "final static void method4() { }";
+questions[1].choices[1] = "public final int void method() { }";
+questions[1].choices[2] = "private void int method() { }";
+questions[1].choices[3] = "static final void method3() { }";
+questions[1].choices[4] = "void final method() { }";
+questions[1].choices[5] = "void public method() { }";
+questions[1].correctAnswers = [0, 3];
+questions[2] = new Question();
+questions[2].question = "Which of the following methods compile? (Choose all that apply)";
+questions[2].choices[0] = "public void methodA() { return; }";
+questions[2].choices[1] = "public void methodB() { return null; }";
+questions[2].choices[2] = "public void methodC() { }";
+questions[2].choices[3] = "public int methodD { return 9; }";
+questions[2].choices[4] = "public int methodE { return 9.0; }";
+questions[2].choices[5] = "public int methodF { return; }";
+questions[2].choices[6] = "public int methodG { return null; }";
+questions[2].correctAnswers = [0, 2, 3];
+questions[3] = new Question();
+questions[3].question = "Which of the following compile?";
+questions[3].choices[0] = "public void moreA(int... nums) {}";
+questions[3].choices[1] = "public void moreB(String values, int... nums) {}";
+questions[3].choices[2] = "public void moreC(int... nums, String values) {}";
+questions[3].choices[3] = "public void moreD(String... values, int... nums) {}";
+questions[3].choices[4] = "public void moreE(String[] values, ...int nums) {}";
+questions[3].choices[5] = "public void moreF(String... values, int[] nums) {}";
+questions[3].choices[6] = "public void moreG(Sting[] values, int[] nums) {}";
+questions[3].correctAnswers = [0, 1, 6];
+questions[4] = new Question();
+questions[4].question = "Given the followig method, which of the method calls return 2? (Choose all that apply)<br>public int howMany(boolean b, boolean... b2){<br>    return b2.length;<br>}";
+questions[4].choices[0] = "howMany();";
+questions[4].choices[1] = "howMany(true);";
+questions[4].choices[2] = "howMany(true, true);";
+questions[4].choices[3] = "howMany(true, true, true);";
+questions[4].choices[4] = "howMany(true, {true});";
+questions[4].choices[5] = "howMany(true, {true, true});";
+questions[4].choices[6] = "howMany(true, new boolean[2]);";
+questions[4].correctAnswers = [3, 6];
+questions[5] = new Question();
+questions[5].question = "Which of the following are true? (Choose all that apply)";
+questions[5].choices[0] = "Package private access in more lenient than protected access.";
+questions[5].choices[1] = "A public class that has private fields and package private methods is not visible to classes outside the package.";
+questions[5].choices[2] = "You can use access modifiers so only some of the classes in a package see a particular package private class.";
+questions[5].choices[3] = "You can use access modifiers to allow read access to all methods, but not any instance variables.";
+questions[5].choices[4] = "You can use access modifiers to restrict read access to all classes that begin with the word Test.";
+questions[5].correctAnswers = [3];
+questions[6] = new Question();
+questions[6].question = "Given the following my.school.ClassRoom and my.city.School class definitions, which line numbers in main() generate a compiler error? (Choose all that apply)<br>1:    package my.school;<br>2:    public class Classroom {<br>3:        private int roomNumber;<br>4:        protected String teacherName;<br>5:        static int globalKey = 54321;<br>6:        public int floor = 3;<br>7:        Classroom(int r, String t) {<br>8:            roomNumber = r;<br>9:            teaherName = t; } }<br><br>1:    package my.city;<br>2:    import my.school.*;<br>3:    public class School {<br>4:        public static void main(String[] args) {<br>5:            System.out.println(Classroom.globalKey);<br>6:            Classroom room = new Classroom(101, \"Mrs. Anderson\");<br>7:            System.out.println(room.roomNumber);<br>8:            System.out.println(room.floor);<br>9:            System.out.println(room.teacherName); } }";
+questions[6].choices[0] = "None, the code compiles fine.";
+questions[6].choices[1] = "Line 5";
+questions[6].choices[2] = "Line 6";
+questions[6].choices[3] = "Line 7";
+questions[6].choices[4] = "Line 8";
+questions[6].choices[5] = "Line 9";
+questions[6].correctAnswers = [1, 2, 3, 5];
+questions[7] = new Question();
+questions[7].question = "Which of the following are true? (Choose all that apply)";
+questions[7].choices[0] = "Encapsulation uses package private instance variables.";
+questions[7].choices[1] = "Encapsulation uses private instnace variables.";
+questions[7].choices[2] = "Encapsulation allows setters.";
+questions[7].choices[3] = "Immutability uses package and private instance variables.";
+questions[7].choices[4] = "Immutability uses private instance variables.";
+questions[7].choices[5] = "Immutability allows setters.";
+questions[7].correctAnswers = [1, 2, 4];
+questions[8] = new Question();
+questions[8].question = "Which are methods using JavaBeans naming conventions for accessors and mutators? (Choose all that apply)";
+questions[8].choices[0] = "public boolean getCanSwim() { return canSwim; }";
+questions[8].choices[1] = "public boolean canSwim() { return numberWings; }";
+questions[8].choices[2] = "public int getNumWings() { return numberWings; }";
+questions[8].choices[3] = "public int numWings() { return numberWings; }";
+questions[8].choices[4] = "public void setCanSwim(boolean b) { canSwim = b; }";
+questions[8].correctAnswers = [2, 4];
+questions[9] = new Question();
+questions[9].question = "What is the output of the following code?<br>1:    package rope;<br>2:    public class Rope {<br>3:        public static int LENGTH = 5;<br>4:        static {<br>5:            LENGTH = 10;<br>6:    }<br>7:    public static void swing() {<br>8:        System.out.print(\"swing\");<br>9:    }<br>10:    }<br><br>1:    import rope.*;<br>2:    import static rope.Rope.*;<br>3:    public class Chimp {<br>4:        public static void main(String[] args) {<br>5:            Rope.swing();<br>6:            new Rope().swing();<br>7:            System.out.println(LENGTH);<br>8:        }<br>9:    }";
+questions[9].choices[0] = "swing swing 5";
+questions[9].choices[1] = "swing swing 10";
+questions[9].choices[2] = "Compiler error on line 2 of Chimp.";
+questions[9].choices[3] = "Compiler error on line 5 of Chimp.";
+questions[9].choices[4] = "Compiler error on line 6 of Chimp.";
+questions[9].choices[5] = "Compiler error on line 7 of Chimp.";
+questions[9].correctAnswers = [1];
+questions[10] = new Question();
+questions[10].question = "Which are true of the following code? (Choose all that apply)<br>1:    public class Rope {<br>2:        public static void swing() {<br>3:            System.out.print(\"swing \");<br>4:        }<br>5:        public void climb() {<br>6:            System.out.println(\"climb \");<br>7:        }<br>8:        public static void play() {<br>9:            swing();<br>10:            climb();<br>11:        }<br>12:        public static void main(String[] args) {    <br>13:            Rope rope = new Rope();<br>14:            rope.play();<br>15:            Rope rope2 = null;<br>16:            rope2.play();<br>17:        }<br>18:    }";
+questions[10].choices[0] = "The code compiles as is.";
+questions[10].choices[1] = "There is exactly one compiler error in the code.";
+questions[10].choices[2] = "There are exactly two comiler errors in the code.";
+questions[10].choices[3] = "If the lines with compiler errors are removed, the output is climb climb.";
+questions[10].choices[4] = "If the lines with compiler errors are removed, the output is swing swing.";
+questions[10].choices[5] = "If the lines with compiler errors are removed, the code throws a NullPointerException.";
+questions[10].choices[6] = "";
+questions[10].correctAnswers = [1, 4];
+questions[11] = new Question();
+questions[11].question = "What is the output of the following code?<br>import rope.*;<br>import static rope.Rope.*;<br>private class RopeSwing {<br>    private static Rope rope1 = new Rope();<br>    private static Rope rope2 = new Rope();<br>    {<br>        System.out.println(rope1.length);<br>    }<br>    public static void main(String[] args) {<br>        rope1.length = 2;<br>        rope2.lenght = 8;<br>        System.out.println(rope1.length);<br>    }<br>}<br><br>package rope;<br>public class Rope {<br>    public static int length = 0;<br>}";
+questions[11].choices[0] = "02";
+questions[11].choices[1] = "08";
+questions[11].choices[2] = "2";
+questions[11].choices[3] = "8";
+questions[11].choices[4] = "The code does not compile.";
+questions[11].choices[5] = "An exception is thrown.";
+questions[11].correctAnswers = [3];
+questions[12] = new Question();
+questions[12].question = "How many compiler errors are in the following code?<br>1:    public class RopeSwing {<br>2:        private static final String leftRope;<br>3:        private static final String rightRope;<br>4:        private static final String bench;<br>5:        private static final String name = \"name\";<br>6:        static {<br>7:            leftRope = \"left\";<br>8:            rightRope = \"right\";<br>9:        }<br>10:        static {<br>11:            name = \"name\";<br>12:            rightRope = \"right\";<br>13:        }<br>14:        public static void main(String[] args) {<br>15:            bench = \"bench\";<br>16:        }<br>17:    }";
+questions[12].choices[0] = "0";
+questions[12].choices[1] = "1";
+questions[12].choices[2] = "2";
+questions[12].choices[3] = "3";
+questions[12].choices[4] = "4";
+questions[12].choices[5] = "5";
+questions[12].correctAnswers = [5];
+questions[13] = new Question();
+questions[13].question = "Which of the following can replace line 2 to make this code compile? (Choose all that apply)<br>1:    import java.util.*;<br>2:    // INSERT CODE HERE<br>3:    public class Imports {<br>4:        public void method(ArrayList&ltString> list) {<br>5:            sort(list);<br>6:        }<br>7:    }";
+questions[13].choices[0] = "import static java.util.Collections;";
+questions[13].choices[1] = "import static java.util.Collections.*;";
+questions[13].choices[2] = "import static java.util.Collections.sort(ArrayList&ltString>);";
+questions[13].choices[3] = "static import java.util.Collections;";
+questions[13].choices[4] = "static import java.util.Collections.*;";
+questions[13].choices[5] = "static import java.util.Collections.sort(ArrayList&ltString>);";
+questions[13].correctAnswers = [1];
+questions[14] = new Question();
+questions[14].question = "What is the result of the following statements?<br>1:    public class Test {<br>2:        public void print(byte x) {<br>3:            System.out.print(\"byte\");<br>4:        }<br>5:        public void print(int x) {<br>6:            System.out.print(\"int\");<br>7:        }<br>8:        public void print(float x) {<br>9:            System.out.print(\"float\");<br>10:        }<br>11:        public void print(Object x) {<br>12:            System.out.print(\"Object\");<br>13:        }<br>14:        public static void main(String[] args) {<br>15:            Test t = new Test();<br>16:            short s = 123;<br>17:            t.print(s);<br>18:            t.print(true);<br>19:            t.print(6.789);<br>20:        }<br>21:    }";
+questions[14].choices[0] = "bytefloatObject";
+questions[14].choices[1] = "intfloatObject";
+questions[14].choices[2] = "byteObjectfloat";
+questions[14].choices[3] = "intObjectfloat";
+questions[14].choices[4] = "intObjectObject";
+questions[14].choices[5] = "byteObjectObject";
+questions[14].correctAnswers = [5];
+questions[15] = new Question();
+questions[15].question = "What is the result of the following program?<br>1:    public class Squares {<br>2:        public static ling square(int x) {<br>3:            long y = x * (long) x;<br>4:            x = -1;<br>5:            return y;<br>6:        }<br>7:        public static void main(String[] args) {<br>8:            int value = 9;<br>9:            long result = square(value);<br>10:            System.out.println(value);<br>11:        } }";
+questions[15].choices[0] = "-1";
+questions[15].choices[1] = "9";
+questions[15].choices[2] = "81";
+questions[15].choices[3] = "Compiler error on line 9.";
+questions[15].choices[4] = "Compiler error on a different line.";
+questions[15].correctAnswers = [1];
+questions[16] = new Question();
+questions[16].question = "Which of the following are output by the following code? (Choose all that apply)<br>public class StringBuilders {<br>    public static StringBuilder work(StringBuilder a, StringBuilder b) {<br>        a = new StringBuilder(\"a\");<br>        b.append(\"b\");<br>        return a;<br>    }<br>    public static void main(String[] args) {<br>        StringBuilder s1 = new StringBuilder(\"s1\");<br>        StringBuilder s2 = new StringBuilder(\"s2\");<br>        StringBuilder s3 = word(s1, s2);<br>        System.out.println(\"s1 = \" + s1);<br>        System.out.println(\"s2 = \" + s2);<br>        System.out.println(\"s3 = \" + s3);<br>    }<br>}";
+questions[16].choices[0] = "s1 = a";
+questions[16].choices[1] = "s1 = s1";
+questions[16].choices[2] = "s2 = s2";
+questions[16].choices[3] = "s3 = a";
+questions[16].choices[4] = "s3 = null";
+questions[16].choices[5] = "The code does not compile.";
+questions[16].correctAnswers = [1, 3, 4];
+questions[17] = new Question();
+questions[17].question = "Which of the following are true? (Choose 2)";
+questions[17].choices[0] = "this() can be called from anywhere in a constructor.";
+questions[17].choices[1] = "this() can be called from any instance method in the class.";
+questions[17].choices[2] = "this.variableName can be called from any instance method in the class.";
+questions[17].choices[3] = "This.variableName can be called from any static method in the class.";
+questions[17].choices[4] = "You must include a default constructor on the code if the compile does not include one.";
+questions[17].choices[5] = "You can call the default constructor wrutten by the comiler using this().";
+questions[17].choices[6] = "You can access a private constructor with the main() method.";
+questions[17].correctAnswers = [2, 6];
+questions[18] = new Question();
+questions[18].question = "Which of these classes compile and use a default constructor? (Choose all that apply)";
+questions[18].choices[0] = "public class Bird { }";
+questions[18].choices[1] = "public class Bird { public bird() {} }";
+questions[18].choices[2] = "public class Bird { public bird(String name) {} }";
+questions[18].choices[3] = "public class Bird { public Bird() {} }";
+questions[18].choices[4] = "public class Bird { Bird(String name) {} }";
+questions[18].choices[5] = "public class Bird { private Bird(int age) {} }";
+questions[18].choices[6] = "public class Bird { void Bird() {} }";
+questions[18].correctAnswers = [0, 6];
+questions[19] = new Question();
+questions[19].question = "Which code can be insterted to have the code print 2?<br>public class BirdSeed {<br>    private int numberBags;<br>    boolean call;<br><br>    public BirdSeed() {<br>        //LINE 1<br>        call = false;<br>        //LINE 2<br>    }<br>    public BirdSeed(int numberBags) {<br>        this.numberBags = numberBags;<br>    }<br>    public static void main(String[] args) {<br>        BirdSeed seed = new BirdSeed();<br>        System.out.println(seed.numberBags);<br>} }";
+questions[19].choices[0] = "Replace line 1 with Birdseed(2);";
+questions[19].choices[1] = "Replace line 2 with Birdseed(2);";
+questions[19].choices[2] = "Replace line 1 with new Birdseed(2);";
+questions[19].choices[3] = "Replace line 2 with new Birdseed(2);";
+questions[19].choices[4] = "Replace line 1 with this(2);";
+questions[19].choices[5] = "Replace line 2 with this(2);";
+questions[19].correctAnswers = [4];
+questions[20] = new Question();
+questions[20].question = "Which of the following complete the constructor so that this code prints out 50? (Choose all that apply)<br>public class Cheetah {<br>    int numSpots;<br>    public Cheetah(int numSpots) {<br>        // INSERT CODE HERE<br>    }<br>    public static void main(String[] args) {<br>        System.out.println(new Cheetah(50).numSpots);<br>    }<br>}";
+questions[20].choices[0] = "numSpots = numSpots;";
+questions[20].choices[1] = "numSpots = this.numSpots;";
+questions[20].choices[2] = "this.numSpots = numSpots;";
+questions[20].choices[3] = "numSpots = super.numSpots;";
+questions[20].choices[4] = "super.numSpots = numSpots;";
+questions[20].choices[5] = "None of the above.";
+questions[20].correctAnswers = [2];
+questions[21] = new Question();
+questions[21].question = "What is the result of the following?<br>1:    public class Order {<br>2:        statuc String result = \"\";<br>3:        { result += \"c\"; }<br>4:        static<br>5:        { result += \"u\"; }<br>6:        { result += \"r\"; }<br>7:    }<br><br>1:    public class OrderDriver {<br>2:        public static void main(String[] args) {<br>3:            System.out.print(Order.result + \" \");<br>4:            System.out.print(Order.result + \" \");<br>5:            new Order();<br>6:            new Order();<br>7:            System.out.print(Order.result + \" \");<br>8:        }<br>9:    }";
+questions[21].choices[0] = "curur";
+questions[21].choices[1] = "ucrcr";
+questions[21].choices[2] = "u ucrcr";
+questions[21].choices[3] = "u u curcur";
+questions[21].choices[4] = "u u ucrcr";
+questions[21].choices[5] = "ur ur urc";
+questions[21].choices[6] = "The code does not compile.";
+questions[21].correctAnswers = [4];
+questions[22] = new Question();
+questions[22].question = "What is the result of the following?<br>1:    public class Order {<br>2:        String value = \"t\";<br>3:        { value += \"a\"; }<br>4:        { value += \"c\"; }<br>5:        public Order() {<br>6:            value += \"b\";<br>7:        }<br>8:        public Order(String s) {<br>9:            value += s;<br>10:        }<br>11:        public static void main(String[] args) {<br>12:            Order order = new Order(\"f\");<br>13:            order = new Order();<br>14:            System.out.println(order.value);<br>15:    } }";
+questions[22].choices[0] = "tacb";
+questions[22].choices[1] = "tacf";
+questions[22].choices[2] = "tacbf";
+questions[22].choices[3] = "tacftacb";
+questions[22].choices[4] = "The code does not compile.";
+questions[22].choices[5] = "An exception is thrown.";
+questions[22].correctAnswers = [0];
+questions[23] = new Question();
+questions[23].question = "Which if the following will compile when inserted in the following code? (Choose all that apply)<br>public class Order3 {<br>    final String value1 = \"1\";<br>    static String value2 = \"2\";<br>    String value3 = \"3\";<br>    {<br>        // CODE SNIPPET 1<br>    }<br>    static {<br>        // CODE SNIPPET 2<br>    }<br>}";
+questions[23].choices[0] = "value1 = \"d\"; instead of // CODE SNIPPET 1";
+questions[23].choices[1] = "value2 = \"e\"; instead of // CODE SNIPPET 1";
+questions[23].choices[2] = "value3 = \"f\"; instead of // CODE SNIPPET 1";
+questions[23].choices[3] = "value1 = \"g\"; instead of // CODE SNIPPET 2";
+questions[23].choices[4] = "value2 = \"h\"; instead of // CODE SNIPPET 2";
+questions[23].choices[5] = "value3 = \"i\"; instead of // CODE SNIPPET 2";
+questions[23].correctAnswers = [1, 2, 4];
+questions[24] = new Question();
+questions[24].question = "Which of the following are true about the following code? (Choose all that apply)<br>public class Create {<br>    Create() {<br>        System.out.print(\"1 \");<br>    }<br>    Create(int num) {<br>        System.out.print(\"2 \");<br>    }<br>    Create(Integer num) {<br>        System.out.print(\"3 \");<br>    }<br>    Create(Object num) {<br>        System.out.print(\"4 \");<br>    }<br>    Create(int... nums) {<br>        System.out.print(\"5 \");<br>    }<br>    public static void main(String[] args) {<br>        new Create(100);<br>        new Create(1000L);<br>    }<br>}";
+questions[24].choices[0] = "The code prints out 2 4.";
+questions[24].choices[1] = "The code prints out 3 4.";
+questions[24].choices[2] = "The code prints out 4 2.";
+questions[24].choices[3] = "The code prints out 4 4.";
+questions[24].choices[4] = "The code prints 3 4 if you remove the constructor Create(int num).";
+questions[24].choices[5] = "The code prints 4 4 if you remove the constructor Create(int num).";
+questions[24].choices[6] = "The code prints 5 4 if you remove the constructor Create(int num).";
+questions[24].correctAnswers = [0, 4];
+questions[25] = new Question();
+questions[25].question = "What is the result of the following class?<br>1:    import java.util.function.*;<br>2:<br>3:    public class Panda {<br>4:        int age;<br>5:        public static void main(String[] args) {<br>6:            Panda p1 = new Panda();<br>7:            p1.age = 1;<br>8:            check(p1, p -> p.age &lt 5);<br>9:        }<br>10:        private static void check(Panda panda, Predicate&ltPanda> pred) {<br>11:            String result = pred.test(panda) ? \"match\" : \"not match\";<br>12:            System.out.println(result);<br>13:    }    }";
+questions[25].choices[0] = "match";
+questions[25].choices[1] = "not match";
+questions[25].choices[2] = "Compiler error on line 8.";
+questions[25].choices[3] = "Compiler error on line 10.";
+questions[25].choices[4] = "Compiler error on line 11.";
+questions[25].choices[5] = "A runtime exception is thrown.";
+questions[25].correctAnswers = [0];
+questions[26] = new Question();
+questions[26].question = "What is the result of the following code?<br>1:    interface Climb {<br>2:        boolean isTooHigh(int height, int limit);<br>3:    }<br>4:<br>5:    public class Climber {<br>6:        public static void main(String[] args) {<br>7:            check((h, l) -> h.append(l).isEmpty(), 5);<br>8:        }<br>9:        private static void check(Climb climb, int height) {<br>10:            if(climb.isTooHigh(height, 10))<br>11:                System.out.println(\"too high\");<br>12:            else<br>13:                System.out.println(\"ok\");<br>14:        }<br>15:    }";
+questions[26].choices[0] = "ok";
+questions[26].choices[1] = "too high";
+questions[26].choices[2] = "Compiler error on line 7.";
+questions[26].choices[3] = "Compiler error on line 10.";
+questions[26].choices[4] = "Compiler error on a different line.";
+questions[26].choices[5] = "A runtime exception is thrown.";
+questions[26].correctAnswers = [2];
+questions[27] = new Question();
+questions[27].question = "Which of the following lambda expressions can fill in the blank? (Choose all that apply)<br>List&ltString> list = new ArrayList&lt>();<br>list.removeIf(_________________);";
+questions[27].choices[0] = "s -> s.isEmpty()";
+questions[27].choices[1] = "s -> { s.isEmpty() }";
+questions[27].choices[2] = "s -> { s.isEmpty(); }";
+questions[27].choices[3] = "s -> { return s.isEmpty(); }";
+questions[27].choices[4] = "String s ->  s.isEmpty();";
+questions[27].choices[5] = "(String s) ->  s.isEmpty()";
+questions[27].correctAnswers = [0, 3, 5];
+questions[28] = new Question();
+questions[28].question = "Which lambda can replace the MySecret class to return the same value? (Choose all that apply)<br>interface Secret {<br>    String magic(double d);<br>}<br><br>class MySecret implements Secret {<br>    public String magic(double d) {<br>        return \"Poof\";<br>    }<br>}";
+questions[28].choices[0] = "caller((e) -> \"Poof\");";
+questions[28].choices[1] = "caller((e) -> {\"Poof\"});";
+questions[28].choices[2] = "caller((e) -> { String e = \"\"; \"Poof\"});";
+questions[28].choices[3] = "caller((e) -> { String e = \"\"; return \"Poof\"; });";
+questions[28].choices[4] = "caller((e) -> { String e = \"\"; return \"Poof\" });";
+questions[28].choices[5] = "caller((e) -> { String f = \"\"; return \"Poof\"; });";
+questions[28].correctAnswers = [0, 5];
+
+    
+    
+    setDivText(questions[0]);
+    setButtons(questions[0]);
+  }
+  
+  function setDivText(q) {
+    body.innerHTML += currentQuestion + 1 + ".<br>";
+    body.innerHTML += q.question + '<br><br><hr size="1">';
+  
+    for (var i = 0; i < q.choices.length; i++) {
+      if (contains(q.userAnswers, i) && q.visited) {
+        body.innerHTML +=
+          convertChar(i) +
+          '<input type=\'checkbox\' checked="true"name="answer" id="' +
+          i +
+          '">' +
+          q.choices[i] +
+          "</input><br><br>";
+      } else {
+        body.innerHTML +=
+          convertChar(i) +
+          '<input type=\'checkbox\' name="answer" id="' +
+          i +
+          '"><br>' +
+          q.choices[i] +
+          '</input><br><hr size="1">';
+      }
+    }
+  
+    q.visited = true;
+  }
+  
+  function contains(array, v){
+        for(var i = 0; i < array.length; i++){
+          if(array[i] == v){
+             return true;
+          }
+        }
+        return false;
+      }
+  
+  function convertChar(a) {
+    switch (a) {
+      case 0:
+      case "0":
+        return "A";
+      case 1:
+      case "1":
+        return "B";
+      case 2:
+      case "2":
+        return "C";
+      case 3:
+      case "3":
+        return "D";
+      case 4:
+      case "4":
+        return "E";
+      case 5:
+      case "5":
+        return "F";
+      case 6:
+      case "6":
+        return "G";
+      case 7:
+      case "7":
+        return "H";
+      case 8:
+      case "8":
+        return "I";
+      case 9:
+      case "9":
+        return "J";
+      case 10:
+      case "10":
+        return "J";
+      case 11:
+      case "11":
+        return "L";
+        
+       
+    }
+  }
+  
+  function setButtons(q) {
+    if (q == questions[0]) {
+      if (questions.length > 1) {
+        body.innerHTML += '<button onclick="nextQuestion()">NEXT</button>';
+      } else {
+        body.innerHTML += '<button onclick="submit()">SUBMIT</button>';
+      }
+    } else if (q == questions[questions.length - 1]) {
+      body.innerHTML += '<button onclick="previousQuestion()">PREVIOUS</button>';
+      body.innerHTML += '<button onclick="submit()">SUBMIT</button>';
+    } else {
+      body.innerHTML += '<button onclick="previousQuestion()">PREVIOUS</button>';
+      body.innerHTML += '<button onclick="nextQuestion()">NEXT</button>';
+    }
+  }
+  
+  function nextQuestion() {
+    setUserAnswers();
+    body.innerHTML = "";
+    currentQuestion++;
+    setDivText(questions[currentQuestion]);
+    setButtons(questions[currentQuestion]);
+    
+  }
+  
+  function previousQuestion() {
+    setUserAnswers()
+    body.innerHTML = "";
+    currentQuestion--;
+    setDivText(questions[currentQuestion]);
+    setButtons(questions[currentQuestion]);
+    
+  }
+  
+  function setUserAnswers() {
+    var q = questions[currentQuestion];
+    var boxes = document.getElementsByTagName('input');
+    q.userAnswers = [];
+    for(var i = 0; i < boxes.length; i++){
+      if(boxes[i].checked){
+        q.userAnswers.push(i);
+      }
+    }
+  }
+  
+  function checkQuiz() {
+    var total = 0;
+    
+    for(var i = 0; i < questions.length; i++){
+      var q = questions[i];
+      if(arrayEquals(q.userAnswers, q.correctAnswers)){
+        total++;
+      }
+    }
+    
+    return total;
+  }
+  
+  function arrayEquals(a, b){
+    if(a.length != b.length){
+      return false;
+    }
+    for (var i = 0; i < a.length; i++) {
+      if(a[i] != b[i]){
+        return false;   
+      }
+    }
+    return true;
+  }
+  
+  function reloadPage() {
+    location = location;
+  }
+  
+  function submit() {
+    setUserAnswers();
+  
+    body.innerHTML =
+      "You got " +
+      checkQuiz() +
+      " out of " +
+      questions.length +
+      ' correct.<br><hr size="3">';
+    for (var i = 0; i < questions.length; i++) {
+      body.innerHTML += i + 1 + ". ";
+        body.innerHTML += questions[i].question + "<br><br>";
+        body.innerHTML += "Your Answers: <br>";
+      
+        for(var j = 0; j < questions[i].userAnswers.length; j++){
+          if(questions[i].correctAnswers.indexOf(questions[i].userAnswers[j]) > -1){
+            body.innerHTML += "<font color='green'>" + questions[i].choices[questions[i].userAnswers[j]] + "</font>" + "<br>";
+          }else{
+            body.innerHTML += "<font color='red'>" + questions[i].choices[questions[i].userAnswers[j]] + "</font>" + "<br>";
+          }
+          
+          
+        }
+      
+        //body.innerHTML += questions[i].choices[questions[i].userAnswer] + "<br>";
+        body.innerHTML += "Correct Answers: <br>";
+      
+        for(var j = 0; j < questions[i].correctAnswers.length; j++){
+          body.innerHTML += questions[i].choices[questions[i].correctAnswers[j]] + "<br>";
+        }
+      
+        //body.innerHTML +=
+          questions[i].choices[questions[i].correctAnswer] + "<br>";
+        body.innerHTML += '<hr size="3">';
+    }
+    body.innerHTML += '<button onclick="reloadPage()">START OVER</button>';
+  }
+</script>
