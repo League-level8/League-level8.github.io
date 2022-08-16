@@ -80,7 +80,6 @@ main .alert-card {
 
     display: flex;
     justify-content: left;
-    margin-top: 1em;
 }
 
 main .alert-card::before {
@@ -126,5 +125,7 @@ main .socrative-list li {
 /* REGISTRATION INFO */
 .registration-info {
     font-size: 1.17em;
-    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
